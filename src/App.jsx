@@ -1,3 +1,4 @@
+// App.jsx
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar";
@@ -12,18 +13,20 @@ import "./App.css";
 
 function App() {
   return (
-    <div>
+    <div className="app">
       <Navbar />
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/AboutUs" element={<AboutUs />} />
-        <Route path="/auv-technology" element={<AUVTechnology />} />
-        <Route path="/robosub" element={<RoboSub />} />
-        <Route path="/OurTeam" element={<OurTeam />} />
-        <Route path="/Sponsors" element={<Sponsors />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/auv-technology" element={<AUVTechnology />} />
+          <Route path="/robosub" element={<RoboSub />} />
+          <Route path="/ourteam" element={<OurTeam />} />
+          <Route path="/sponsors" element={<Sponsors />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </main>
+      {/* We'll add a footer component later */}
     </div>
   );
 }
