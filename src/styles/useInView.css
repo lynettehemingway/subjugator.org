@@ -1,0 +1,343 @@
+/* Enhanced Timeline Animation Styles */
+
+/* Timeline Section Base Styles */
+.history-section {
+    position: relative;
+    background-color: var(--color-background-secondary);
+    overflow: hidden;
+  }
+  
+  /* Blueprint Grid Background with Parallax */
+  .blueprint-grid-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(0, 0, 0, 0.95) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.95) 1px, transparent 1px),
+      linear-gradient(rgba(0, 0, 0, 0.85) 0.5px, transparent 0.5px),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0.5px, transparent 0.5px);
+    background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+    opacity: 0.15;
+    z-index: 0;
+    transform: translateY(0);
+    transition: transform 0.3s ease-out;
+  }
+  
+  .history-section:hover .blueprint-grid-bg {
+    transform: translateY(-10px);
+  }
+  
+  /* Timeline Container */
+  .history-timeline {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px 0;
+  }
+  
+  /* Timeline Connector Line */
+  .timeline-connector {
+    position: absolute;
+    width: 6px;
+    background: linear-gradient(to bottom, #FA4616, #4A9FFF);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -3px;
+    border-radius: 3px;
+    z-index: 1;
+    box-shadow: 0 0 10px rgba(250, 70, 22, 0.3);
+  }
+  
+  /* Timeline Milestone Wrapper */
+  .timeline-milestone {
+    position: relative;
+    margin-bottom: 100px;
+    clear: both;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  .timeline-milestone.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .timeline-milestone:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Milestone Year Marker */
+  .milestone-marker {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    border: 4px solid #FA4616;
+    border-radius: 50%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow 0.3s ease-out, transform 0.3s ease-out;
+  }
+  
+  /* Pulsing Effect for Year Markers */
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(250, 70, 22, 0.7);
+      transform: translateX(-50%) scale(1);
+    }
+    70% {
+      box-shadow: 0 0 0 15px rgba(250, 70, 22, 0);
+      transform: translateX(-50%) scale(1.05);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(250, 70, 22, 0);
+      transform: translateX(-50%) scale(1);
+    }
+  }
+  
+  .milestone-marker.active {
+    animation: pulse 2s infinite;
+  }
+  
+  .milestone-marker:hover {
+    box-shadow: 0 0 20px rgba(250, 70, 22, 0.8);
+    transform: translateX(-50%) scale(1.05);
+  }
+  
+  .milestone-year {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  }
+  
+  /* Milestone Content Card */
+  .milestone-content {
+    width: 43%;
+    position: relative;
+    background: rgba(26, 26, 26, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.3s ease;
+    float: left;
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .milestone-content.right {
+    float: right;
+    transform: translateX(30px);
+  }
+  
+  .milestone-content.animate-in {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .milestone-content:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    border-color: rgba(250, 70, 22, 0.3);
+  }
+  
+  /* Milestone Image */
+  .milestone-image {
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    border-bottom: 3px solid #FA4616;
+    position: relative;
+    transition: transform 0.5s ease-out;
+    overflow: hidden;
+  }
+  
+  .milestone-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  
+  .milestone-content:hover .milestone-image::before {
+    opacity: 1;
+  }
+  
+  .milestone-content:hover .milestone-image {
+    transform: scale(1.05);
+  }
+  
+  .milestone-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(to top, rgba(26, 26, 26, 1), rgba(26, 26, 26, 0));
+    z-index: 2;
+  }
+  
+  /* Milestone Details */
+  .milestone-details {
+    padding: 25px;
+    transition: transform 0.3s ease;
+  }
+  
+  .milestone-content:hover .milestone-details {
+    transform: translateY(-5px);
+  }
+  
+  .milestone-details h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    color: #fff;
+    position: relative;
+    padding-bottom: 10px;
+  }
+  
+  .milestone-details h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, #FA4616, #ff8c69);
+    transition: width 0.3s ease;
+  }
+  
+  .milestone-content:hover .milestone-details h3::after {
+    width: 60px;
+  }
+  
+  .milestone-details p {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+  }
+  
+  /* Tags for technologies */
+  .milestone-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .tech-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(250, 70, 22, 0.3);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .milestone-content:hover .tech-tag {
+    background-color: rgba(250, 70, 22, 0.2);
+  }
+  
+  .tech-tag:hover {
+    transform: translateY(-2px);
+    background-color: rgba(250, 70, 22, 0.3);
+  }
+  
+  /* Responsive Timeline Adjustments */
+  @media screen and (max-width: 992px) {
+    .timeline-connector {
+      left: 30px;
+    }
+    
+    .milestone-marker {
+      left: 30px;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 60px;
+    }
+    
+    .milestone-marker.active,
+    .milestone-marker:hover {
+      transform: translateX(-50%) scale(1.05);
+    }
+    
+    @keyframes pulseResponsive {
+      0% {
+        box-shadow: 0 0 0 0 rgba(250, 70, 22, 0.7);
+        transform: translateX(-50%) scale(1);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(250, 70, 22, 0);
+        transform: translateX(-50%) scale(1.05);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(250, 70, 22, 0);
+        transform: translateX(-50%) scale(1);
+      }
+    }
+    
+    .milestone-marker.active {
+      animation: pulseResponsive 2s infinite;
+    }
+    
+    .milestone-year {
+      font-size: 1.2rem;
+    }
+    
+    .milestone-content,
+    .milestone-content.right {
+      width: calc(100% - 60px);
+      float: right;
+      margin-left: 60px;
+      margin-right: 0;
+      transform: translateX(30px);
+    }
+    
+    .milestone-content.animate-in,
+    .milestone-content.right.animate-in {
+      transform: translateX(0);
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .milestone-marker {
+      left: 20px;
+      width: 50px;
+      height: 50px;
+    }
+    
+    .milestone-content,
+    .milestone-content.right {
+      margin-left: 40px;
+      width: calc(100% - 40px);
+    }
+    
+    .milestone-year {
+      font-size: 1rem;
+    }
+    
+    .milestone-image {
+      height: 150px;
+    }
+  }

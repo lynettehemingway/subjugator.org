@@ -179,7 +179,7 @@
 
 .animate-cta {
   animation: slideUp 1s ease forwards;
-  animation-delay: 1s;
+  animation-delay: 0.75s;
 }
 
 .animate-fadeIn {
@@ -301,13 +301,12 @@
 .tech-highlights-section .btn {
   margin-top: 2rem;
   align-self: flex-start;
-  display: inline-block; 
-  margin-left: 0; 
+  display: inline-block;
+  margin-left: 0;
   margin-right: auto;
   width: auto;
   max-width: fit-content;
 }
-
 
 .highlight-image {
   position: absolute;
@@ -543,7 +542,7 @@
 }
 
 .btn-primary:hover {
-  background-color: #e03a00; 
+  background-color: #e03a00;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(250, 70, 22, 0.3);
   color: white;

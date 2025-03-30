@@ -1,0 +1,929 @@
+
+/* Hero Section with Blueprint Background */
+.about-hero-section {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #000000;
+  background-image: url("/src/assets/submarine-blueprint.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 0 20px;
+}
+
+.blueprint-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  z-index: 0;
+}
+
+.about-hero-section .container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--max-width);
+  padding: 0 20px;
+}
+
+.hero-content {
+  max-width: 800px;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  padding: 40px;
+  border-radius: 8px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  margin-bottom: 10px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.hero-divider {
+  height: 3px;
+  width: 80px;
+  background: linear-gradient(90deg, #fa4616, #ff8c69);
+  margin: 20px auto;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 300;
+  color: #ffffff;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.mission-statement {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.mission-statement p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  animation: fadeInUp 2s ease infinite;
+  z-index: 1;
+}
+
+.scroll-icon {
+  width: 30px;
+  height: 50px;
+  border: 2px solid white;
+  border-radius: 15px;
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.scroll-icon::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  animation: scrollDown 2s infinite;
+}
+
+.scroll-text {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: white;
+  margin: 0;
+}
+
+/* Common Section Styles - VERTICAL LAYOUT */
+.section {
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 900px;
+}
+
+.section-header h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.section-divider {
+  height: 3px;
+  width: 80px;
+  background: linear-gradient(90deg, #fa4616, #ff8c69);
+  margin: 15px auto 25px;
+}
+
+.subtitle {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.section-description {
+  max-width: 800px;
+  margin: 0 auto 50px;
+  text-align: center;
+}
+
+.section-description p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+}
+
+/* Mission Section - VERTICAL LAYOUT */
+.mission-section {
+  background-color: var(--color-background);
+  position: relative;
+}
+
+.mission-content {
+  width: 100%;
+}
+
+.mission-intro {
+  max-width: 800px;
+  margin: 0 auto 50px;
+  text-align: center;
+}
+
+.mission-intro p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+}
+
+.mission-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  width: 100%;
+}
+
+.mission-card {
+  background-color: var(--color-ui-dark);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.mission-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border-color: rgba(250, 70, 22, 0.3);
+}
+
+.mission-card-header {
+  padding: 25px 20px;
+  background: linear-gradient(to right, #1a1a1a, #222222);
+  border-bottom: 2px solid var(--color-primary);
+  text-align: center;
+}
+
+.mission-icon {
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  background: linear-gradient(135deg, #1a1a1a, #333333);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  margin: 0 auto 15px;
+}
+
+.mission-card-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+
+.mission-card-body {
+  padding: 25px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.mission-card-body p {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.mission-points {
+  list-style: none;
+  padding: 0;
+  margin: auto 0 0 0;
+}
+
+.mission-points li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.95rem;
+}
+
+.mission-points li:before {
+  content: "›";
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* History Timeline Section - VERTICAL LAYOUT */
+.history-section {
+  background-color: var(--color-background-secondary);
+  position: relative;
+}
+
+.blueprint-grid-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.95) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.95) 1px, transparent 1px),
+    linear-gradient(rgba(0, 0, 0, 0.85) 0.5px, transparent 0.5px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0.5px, transparent 0.5px);
+  background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+  opacity: 0.15;
+  z-index: 0;
+}
+
+.history-timeline {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.timeline-connector {
+  position: absolute;
+  width: 6px;
+  background: linear-gradient(to bottom, #FA4616, #4A9FFF);
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -3px;
+  border-radius: 3px;
+  z-index: 1;
+}
+
+.timeline-milestone {
+  position: relative;
+  margin-bottom: 100px;
+  clear: both;
+}
+
+.timeline-milestone:last-child {
+  margin-bottom: 0;
+}
+
+.milestone-marker {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000;
+  border: 4px solid #FA4616;
+  border-radius: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.milestone-year {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.milestone-content {
+  width: 43%;
+  position: relative;
+  background: rgba(26, 26, 26, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  float: left;
+}
+
+.milestone-content:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  border-color: rgba(250, 70, 22, 0.3);
+}
+
+.milestone-content.right {
+  float: right;
+}
+
+.milestone-image {
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 3px solid #FA4616;
+  position: relative;
+}
+
+.milestone-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(to top, rgba(26, 26, 26, 1), rgba(26, 26, 26, 0));
+}
+
+.milestone-details {
+  padding: 25px;
+}
+
+.milestone-details h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.milestone-details p {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+}
+
+.milestone-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tech-tag {
+  display: inline-block;
+  padding: 4px 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(250, 70, 22, 0.3);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Team Composition Section - VERTICAL LAYOUT */
+.team-composition-section {
+  background-color: var(--color-background);
+  position: relative;
+}
+
+.team-structure {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  width: 100%;
+}
+
+.team-department {
+  background-color: var(--color-ui-dark);
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.team-department:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  border-color: rgba(250, 70, 22, 0.3);
+}
+
+.department-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.mechanical-icon {
+  background: linear-gradient(135deg, #FF4500, #FF8C00);
+}
+
+.electrical-icon {
+  background: linear-gradient(135deg, #4A9FFF, #0041C2);
+}
+
+.software-icon {
+  background: linear-gradient(135deg, #7CFC00, #228B22);
+}
+
+.team-department h3 {
+  margin-bottom: 15px;
+  color: white;
+  font-size: 1.6rem;
+}
+
+.team-department p {
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+.department-skills {
+  list-style: none;
+  padding: 0;
+  margin: auto 0 0 0;
+  text-align: left;
+}
+
+.department-skills li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.95rem;
+}
+
+.department-skills li:before {
+  content: "›";
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.mechanical-icon + h3 + p + .department-skills li:before {
+  color: #FF4500;
+}
+
+.electrical-icon + h3 + p + .department-skills li:before {
+  color: #4A9FFF;
+}
+
+.software-icon + h3 + p + .department-skills li:before {
+  color: #7CFC00;
+}
+
+.team-cta {
+  text-align: center;
+  margin-top: 50px;
+  width: 100%;
+}
+
+.team-cta .btn {
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+/* Faculty Advisors Section - VERTICAL LAYOUT */
+.advisors-section {
+  background-color: var(--color-background-secondary);
+  position: relative;
+}
+
+.advisors-content {
+  width: 100%;
+}
+
+.advisor-description {
+  max-width: 800px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.advisor-description p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+}
+
+.advisors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  width: 100%;
+}
+
+.advisor-card {
+  background-color: var(--color-ui-dark);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.advisor-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  border-color: rgba(250, 70, 22, 0.3);
+}
+
+.advisor-info {
+  padding: 25px;
+}
+
+.advisor-info h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+.advisor-title {
+  color: var(--color-accent);
+  margin-bottom: 20px;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.advisor-expertise {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.advisor-expertise h4 {
+  font-size: 1.1rem;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.expertise-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.expertise-list li {
+  background-color: rgba(250, 70, 22, 0.2);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.advisor-bio {
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Recognition Section - VERTICAL LAYOUT */
+.recognition-section {
+  background-color: var(--color-background);
+  position: relative;
+}
+
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  width: 100%;
+}
+
+.achievement-card {
+  background-color: var(--color-ui-dark);
+  padding: 35px 25px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.achievement-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  border-color: rgba(250, 70, 22, 0.3);
+}
+
+.achievement-icon {
+  font-size: 2.5rem;
+  color: var(--color-primary);
+  background-color: rgba(250, 70, 22, 0.1);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.achievement-card:hover .achievement-icon {
+  transform: scale(1.1);
+  background-color: rgba(250, 70, 22, 0.2);
+}
+
+.achievement-card h3 {
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.achievement-card p {
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+/* Join Us Section - VERTICAL LAYOUT */
+.join-section {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+    url("/src/assets/join-background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 100px 0;
+  text-align: center;
+}
+
+.join-content {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(5px);
+  padding: 40px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.join-content h2 {
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.join-content p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+.join-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.join-buttons .btn {
+  min-width: 180px;
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+/* Animation keyframes */
+@keyframes scrollDown {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  75% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0.3;
+    transform: translate(-50%, 10px);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0.3;
+    transform: translate(-50%, 10px);
+  }
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 1200px) {
+  .section {
+    padding: 80px 0;
+  }
+  
+  .container {
+    max-width: 100%;
+    padding: 0 30px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .section-header {
+    margin-bottom: 40px;
+  }
+  
+  .hero-content {
+    max-width: 90%;
+    padding: 30px;
+  }
+  
+  /* Timeline mobile adjustments */
+  .timeline-connector {
+    left: 30px;
+  }
+  
+  .milestone-marker {
+    left: 30px;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+  }
+  
+  .milestone-year {
+    font-size: 1.2rem;
+  }
+  
+  .milestone-content,
+  .milestone-content.right {
+    width: calc(100% - 60px);
+    float: right;
+    margin-left: 60px;
+    margin-right: 0;
+  }
+  
+  .join-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .join-buttons .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .section {
+    padding: 70px 0;
+  }
+  
+  .about-hero-section {
+    height: auto;
+    min-height: 100vh;
+    padding: 80px 0;
+  }
+  
+  .hero-content {
+    padding: 25px;
+  }
+  
+  .mission-intro p,
+  .mission-statement p,
+  .advisor-description p,
+  .join-content p {
+    font-size: 1rem;
+  }
+  
+  .milestone-image {
+    height: 150px;
+  }
+  
+  .join-content {
+    padding: 30px 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .section {
+    padding: 60px 0;
+  }
+  
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .milestone-marker {
+    left: 20px;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .milestone-content {
+    margin-left: 40px;
+    width: calc(100% - 40px);
+  }
+  
+  .milestone-year {
+    font-size: 1rem;
+  }
+  
+  .team-department,
+  .advisor-card {
+    padding: 20px;
+  }
+}
+
