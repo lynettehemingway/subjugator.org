@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { FaTrophy, FaUsers, FaLightbulb, FaAward, FaBook } from "react-icons/fa";
+import {
+  FaTrophy,
+  FaUsers,
+  FaLightbulb,
+  FaAward,
+  FaBook,
+} from "react-icons/fa";
 import "../styles/AboutUs.css";
 
 function useInView(options = {}) {
@@ -12,22 +18,25 @@ function useInView(options = {}) {
     const element = ref.current;
     if (!element) return;
 
-    const observer = new IntersectionObserver(([entry]) => {
-      if (!hasAnimated && entry.isIntersecting) {
-        setIsInView(true);
-        setHasAnimated(true);
-        
-        if (options.once) {
-          observer.unobserve(element);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!hasAnimated && entry.isIntersecting) {
+          setIsInView(true);
+          setHasAnimated(true);
+
+          if (options.once) {
+            observer.unobserve(element);
+          }
+        } else if (!options.once) {
+          setIsInView(entry.isIntersecting);
         }
-      } else if (!options.once) {
-        setIsInView(entry.isIntersecting);
+      },
+      {
+        root: options.root || null,
+        rootMargin: options.rootMargin || "0px",
+        threshold: options.threshold || 0.1,
       }
-    }, {
-      root: options.root || null,
-      rootMargin: options.rootMargin || '0px',
-      threshold: options.threshold || 0.1,
-    });
+    );
 
     observer.observe(element);
 
@@ -36,7 +45,13 @@ function useInView(options = {}) {
         observer.unobserve(element);
       }
     };
-  }, [options.once, options.root, options.rootMargin, options.threshold, hasAnimated]);
+  }, [
+    options.once,
+    options.root,
+    options.rootMargin,
+    options.threshold,
+    hasAnimated,
+  ]);
 
   return [ref, isInView, hasAnimated];
 }
@@ -65,7 +80,7 @@ function AboutUs() {
         if (targetElement) {
           window.scrollTo({
             top: targetElement.offsetTop - 80, // Adjust for header height
-            behavior: "smooth"
+            behavior: "smooth",
           });
         }
       }
@@ -73,24 +88,24 @@ function AboutUs() {
 
     // Apply event listeners
     window.addEventListener("scroll", handleScroll);
-    
+
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
-    anchorLinks.forEach(link => {
-      link.addEventListener('click', handleAnchorClick);
+    anchorLinks.forEach((link) => {
+      link.addEventListener("click", handleAnchorClick);
     });
 
     // Cleanup
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      anchorLinks.forEach(link => {
-        link.removeEventListener('click', handleAnchorClick);
+      anchorLinks.forEach((link) => {
+        link.removeEventListener("click", handleAnchorClick);
       });
     };
   }, []);
 
   return (
     <div className="about-page">
-      {/* Hero Section with Blueprint Background */}
+      {/* Hero Section with  Background */}
       <section className="about-hero-section">
         <div className="blueprint-overlay"></div>
         <div className="container">
@@ -98,18 +113,7 @@ function AboutUs() {
             <h1 className="hero-title">About Us</h1>
             <div className="hero-divider"></div>
             <p className="hero-subtitle">The Team Behind SubjuGator</p>
-            <div className="mission-statement">
-              <p>
-                Founded in 1997, the SubjuGator team at the University of
-                Florida has been at the forefront of autonomous underwater
-                vehicle research and development for over two decades.
-              </p>
-            </div>
           </div>
-        </div>
-        <div className="scroll-indicator">
-          <div className="scroll-icon"></div>
-          <p className="scroll-text">Scroll to Discover</p>
         </div>
       </section>
 
@@ -128,9 +132,9 @@ function AboutUs() {
           <div className="section-description">
             <p>
               The SubjuGator team is dedicated to designing and building
-              autonomous underwater vehicles that push the boundaries of
-              what's possible in marine robotics. Our mission focuses on
-              three key objectives:
+              autonomous underwater vehicles that push the boundaries of what's
+              possible in marine robotics. Our mission focuses on three key
+              objectives:
             </p>
           </div>
 
@@ -145,9 +149,9 @@ function AboutUs() {
               <div className="mission-card-body">
                 <p>
                   Advancing the field of underwater robotics through novel
-                  solutions and cutting-edge technology integration. We focus
-                  on pushing the boundaries of autonomous navigation,
-                  computer vision, and adaptive control systems.
+                  solutions and cutting-edge technology integration. We focus on
+                  pushing the boundaries of autonomous navigation, computer
+                  vision, and adaptive control systems.
                 </p>
                 <ul className="mission-points">
                   <li>Novel sensor fusion algorithms</li>
@@ -226,7 +230,9 @@ function AboutUs() {
               <div className="milestone-content">
                 <div
                   className="milestone-image"
-                  style={{ backgroundImage: "url('/src/assets/subjugator1.jpg')" }}
+                  style={{
+                    backgroundImage: "url('/src/assets/subjugator1.jpg')",
+                  }}
                 ></div>
                 <div className="milestone-details">
                   <h3>Team Formation</h3>
@@ -250,7 +256,9 @@ function AboutUs() {
               <div className="milestone-content right">
                 <div
                   className="milestone-image"
-                  style={{ backgroundImage: "url('/src/assets/subjugator3.jpg')" }}
+                  style={{
+                    backgroundImage: "url('/src/assets/subjugator3.jpg')",
+                  }}
                 ></div>
                 <div className="milestone-details">
                   <h3>First Competition Win</h3>
@@ -274,7 +282,9 @@ function AboutUs() {
               <div className="milestone-content">
                 <div
                   className="milestone-image"
-                  style={{ backgroundImage: "url('/src/assets/subjugator6.jpg')" }}
+                  style={{
+                    backgroundImage: "url('/src/assets/subjugator6.jpg')",
+                  }}
                 ></div>
                 <div className="milestone-details">
                   <h3>Technology Evolution</h3>
@@ -298,13 +308,15 @@ function AboutUs() {
               <div className="milestone-content right">
                 <div
                   className="milestone-image"
-                  style={{ backgroundImage: "url('/src/assets/subjugator8.jpg')" }}
+                  style={{
+                    backgroundImage: "url('/src/assets/subjugator8.jpg')",
+                  }}
                 ></div>
                 <div className="milestone-details">
                   <h3>Advanced Autonomy</h3>
                   <p>
-                    Implemented deep learning-based object detection and acoustic
-                    localization, pushing the boundaries of underwater
+                    Implemented deep learning-based object detection and
+                    acoustic localization, pushing the boundaries of underwater
                     perception.
                   </p>
                   <div className="milestone-tech">
@@ -322,7 +334,9 @@ function AboutUs() {
               <div className="milestone-content">
                 <div
                   className="milestone-image"
-                  style={{ backgroundImage: "url('/src/assets/subjugator9.jpg')" }}
+                  style={{
+                    backgroundImage: "url('/src/assets/subjugator9.jpg')",
+                  }}
                 ></div>
                 <div className="milestone-details">
                   <h3>SubjuGator 9</h3>
@@ -423,9 +437,7 @@ function AboutUs() {
           <div className="section-header">
             <h2>Faculty Advisors</h2>
             <div className="section-divider"></div>
-            <p className="subtitle">
-              Expert guidance from leading researchers
-            </p>
+            <p className="subtitle">Expert guidance from leading researchers</p>
           </div>
 
           <div className="advisors-content">
@@ -433,9 +445,9 @@ function AboutUs() {
               <p>
                 The SubjuGator team is fortunate to have the guidance and
                 support of world-class faculty from the University of Florida's
-                College of Engineering. Our advisors provide technical expertise,
-                research direction, and facilitate connections with industry
-                partners.
+                College of Engineering. Our advisors provide technical
+                expertise, research direction, and facilitate connections with
+                industry partners.
               </p>
             </div>
 
@@ -463,20 +475,20 @@ function AboutUs() {
 
               <div className="advisor-card">
                 <div className="advisor-info">
-                  <h3>Dr. Antonio Arroyo</h3>
+                  <h3>Dr. Carl Crane</h3>
                   <p className="advisor-title">
-                    Professor, Electrical & Computer Engineering
+                    Professor, Mechanical & Aerospace Engineering
                   </p>
                   <div className="advisor-expertise">
                     <h4>Areas of Expertise:</h4>
                     <ul className="expertise-list">
-                      <li>Control Systems</li>
-                      <li>Machine Learning</li>
-                      <li>Signal Processing</li>
+                      <li>Autonomous Systems</li>
+                      <li>Vehicle Robotics</li>
+                      <li>Navigation Technology</li>
                     </ul>
                   </div>
                   <p className="advisor-bio">
-                    Advises on control systems and electronic design for
+                    Advises on autonomous navigation and mechanical systems for
                     underwater applications.
                   </p>
                 </div>
@@ -485,7 +497,6 @@ function AboutUs() {
           </div>
         </div>
       </section>
-
       {/* Recognition Section - Vertical Layout */}
       <section id="achievements" className="recognition-section section">
         <div className="container">

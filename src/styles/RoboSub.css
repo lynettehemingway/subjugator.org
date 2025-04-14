@@ -1,0 +1,878 @@
+/* Ensure all selectors are prefixed with .robosub-page to avoid affecting other pages */
+.robosub-page {
+    /* Base styles for the page */
+    color: var(--color-text-primary);
+    background-color: var(--color-background);
+    overflow-x: hidden;
+  }
+  
+  /* Hero Section with regular background (not underwater) */
+  .robosub-page .robosub-hero-section {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #000000;
+  }
+  
+  /* Background image styling similar to Home page */
+  .robosub-page .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("/src/assets/submarine-hero.jpg");
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+  }
+  
+  .robosub-page .hero-background.animate-fadeIn {
+    opacity: 1;
+  }
+  
+  /* Add overlay to darken the background image */
+  .robosub-page .hero-background::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.5) 100%
+    );
+  }
+  
+  .robosub-page .container {
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 20px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .robosub-page .robosub-hero-section .container {
+    height: 100%;
+    justify-content: center;
+  }
+  
+  .robosub-page .hero-content {
+    max-width: 800px;
+    text-align: center;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .robosub-page .hero-title {
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 0;
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    text-align: center;
+    width: 100%;
+    opacity: 0;
+    position: relative;
+    z-index: 3;
+  }
+  
+  .robosub-page .hero-title.animate-title {
+    animation: robosub-slideUp 1s ease forwards;
+  }
+  
+  .robosub-page .hero-divider {
+    height: 4px;
+    width: 120px;
+    margin: 20px auto 40px;
+    background: linear-gradient(90deg, #FA4616, #FF8C69);
+    border-radius: 2px;
+    position: relative;
+    z-index: 3;
+  }
+  
+  /* AUV container with timed appearance */
+  .robosub-page .auv-container {
+    position: relative;
+    width: 70%;
+    max-width: 700px;
+    margin: 0 auto 40px;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 1s ease-out;
+  }
+  
+  .robosub-page .auv-container.auv-visible {
+    opacity: 1;
+  }
+  
+  .robosub-page .auv-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 0 20px rgba(74, 159, 255, 0.4));
+  }
+  
+  .robosub-page .auv-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(
+      ellipse,
+      rgba(74, 159, 255, 0.2) 0%,
+      rgba(0, 48, 135, 0.05) 50%,
+      transparent 70%
+    );
+    border-radius: 50%;
+    filter: blur(30px);
+    pointer-events: none;
+    z-index: -1;
+  }
+  
+  .robosub-page .hero-subtitle {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .robosub-page .hero-subtitle.animate-subtitle {
+    animation: robosub-slideUp 1s ease forwards;
+  }
+  
+  /* Animation for title and subtitle */
+  @keyframes robosub-slideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* ========== Common Section Styles ========== */
+  .robosub-page .section {
+    padding: 40px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .robosub-page .container {
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  
+  .robosub-page .container.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .robosub-page .section-header {
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  .robosub-page .section-header h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 15px;
+    color: #fff;
+  }
+  
+  .robosub-page .section-divider {
+    height: 3px;
+    width: 80px;
+    background: linear-gradient(90deg, #FA4616, #FF8C69);
+    margin: 15px auto 25px;
+  }
+  
+  .robosub-page .subtitle {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+  
+  /* ========== What is RoboSub Section ========== */
+  .robosub-page .what-is-section {
+    background-color: var(--color-background);
+    position: relative;
+  }
+  
+  .robosub-page .section-content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    max-width: 1000px;
+  }
+  
+  .robosub-page .info-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    background-color: var(--color-ui-dark);
+    border-radius: 8px;
+    padding: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .robosub-page .info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(250, 70, 22, 0.3);
+  }
+  
+  .robosub-page .info-card-icon {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(250, 70, 22, 0.1);
+    border-radius: 50%;
+  }
+  
+  .robosub-page .info-card-content {
+    flex-grow: 1;
+  }
+  
+  .robosub-page .info-card-content h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.6rem;
+    color: #fff;
+  }
+  
+  .robosub-page .info-card-content p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  
+  /* ========== Vehicle Section ========== */
+  .robosub-page .vehicle-section {
+    background-color: var(--color-background-secondary);
+    position: relative;
+  }
+  
+  .robosub-page .vehicle-showcase {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    width: 100%;
+    margin-bottom: 40px;
+  }
+  
+  @media (min-width: 992px) {
+    .robosub-page .vehicle-showcase {
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+    }
+  }
+  
+  .robosub-page .vehicle-image-container {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  }
+  
+  .robosub-page .vehicle-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  
+  .robosub-page .vehicle-image-container:hover .vehicle-image {
+    transform: scale(1.03);
+  }
+  
+  .robosub-page .image-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    color: white;
+    padding: 20px;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  
+  .robosub-page .vehicle-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .robosub-page .spec-highlight {
+    background-color: var(--color-ui-dark);
+    border-radius: 8px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .robosub-page .spec-highlight:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(250, 70, 22, 0.3);
+  }
+  
+  .robosub-page .spec-highlight h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+    color: #fff;
+    position: relative;
+    padding-bottom: 15px;
+  }
+  
+  .robosub-page .spec-highlight h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--color-primary);
+  }
+  
+  .robosub-page .spec-highlight p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+  }
+  
+  .robosub-page .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
+  
+  .robosub-page .spec-item {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 6px;
+    transition: transform 0.3s ease;
+  }
+  
+  .robosub-page .spec-item:hover {
+    transform: translateY(-3px);
+    background-color: rgba(250, 70, 22, 0.1);
+  }
+  
+  .robosub-page .spec-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 5px;
+  }
+  
+  .robosub-page .spec-value {
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+  }
+  
+  .robosub-page .tech-button-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  /* ========== Tech Sections (Mechanical, Electrical, Software) ========== */
+  .robosub-page .mechanical-section {
+    background-color: var(--color-background);
+    position: relative;
+  }
+  
+  .robosub-page .electrical-section {
+    background-color: var(--color-background-secondary);
+    position: relative;
+  }
+  
+  .robosub-page .software-section {
+    background-color: var(--color-background);
+    position: relative;
+  }
+  
+  .robosub-page .tech-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    width: 100%;
+  }
+  
+  @media (min-width: 992px) {
+    .robosub-page .tech-grid {
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+    
+    .robosub-page .tech-grid.reverse {
+      grid-template-columns: 1fr 1fr;
+      direction: rtl;
+    }
+    
+    .robosub-page .tech-grid.reverse > * {
+      direction: ltr;
+    }
+  }
+  
+  .robosub-page .tech-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .robosub-page .tech-content h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #fff;
+    position: relative;
+    padding-bottom: 15px;
+  }
+  
+  .robosub-page .tech-content h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--color-primary);
+  }
+  
+  .robosub-page .tech-content p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 25px;
+  }
+  
+  .robosub-page .features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .robosub-page .feature-item {
+    background-color: var(--color-ui-dark);
+    border-radius: 8px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .robosub-page .feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-color: rgba(250, 70, 22, 0.2);
+  }
+  
+  .robosub-page .feature-item h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: var(--color-primary);
+  }
+  
+  .robosub-page .feature-item p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+  }
+  
+  .robosub-page .tech-image-container {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    height: 100%;
+    min-height: 300px;
+  }
+  
+  .robosub-page .tech-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  
+  .robosub-page .tech-image-container:hover .tech-image {
+    transform: scale(1.05);
+  }
+  
+  .robosub-page .image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7) 50%, transparent);
+    padding: 30px 20px 20px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .robosub-page .tech-image-container:hover .image-overlay {
+    transform: translateY(0);
+  }
+  
+  .robosub-page .image-overlay-content h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: white;
+  }
+  
+  .robosub-page .image-overlay-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  /* ========== Strategy Section ========== */
+  .robosub-page .strategy-section {
+    background-color: var(--color-background-secondary);
+    position: relative;
+  }
+  
+  .robosub-page .strategy-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    width: 100%;
+  }
+  
+  @media (min-width: 992px) {
+    .robosub-page .strategy-content {
+      grid-template-columns: 0.8fr 1.2fr;
+      align-items: center;
+    }
+  }
+  
+  .robosub-page .strategy-image-container {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  }
+  
+  .robosub-page .strategy-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  
+  .robosub-page .strategy-image-container:hover .strategy-image {
+    transform: scale(1.05);
+  }
+  
+  .robosub-page .strategy-text {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .robosub-page .strategy-text p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin: 0;
+  }
+  
+  .robosub-page .strategy-points {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+  
+  .robosub-page .strategy-point {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  
+  .robosub-page .point-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1;
+    opacity: 0.8;
+    flex-shrink: 0;
+  }
+  
+  .robosub-page .point-content {
+    flex-grow: 1;
+  }
+  
+  .robosub-page .point-content h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    color: #fff;
+  }
+  
+  .robosub-page .point-content p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  
+  .robosub-page .strategy-conclusion {
+    font-style: italic;
+    font-size: 1.1rem !important;
+    border-left: 3px solid var(--color-primary);
+    padding-left: 20px;
+  }
+  
+  
+  /* ========== Join Us Section ========== */
+  .robosub-page .join-section {
+    padding: 100px 0 50px 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+      url('/src/assets/join-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+    background-repeat: no-repeat;
+    text-align: center;
+    overflow: hidden;
+  }
+  
+  .robosub-page .join-content {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(5px);
+    padding: 40px;
+    border-radius: 8px;
+  }
+  
+  .robosub-page .join-content h2 {
+    font-size: clamp(2.2rem, 5vw, 3rem);
+    margin-bottom: 20px;
+    color: #fff;
+  }
+  
+  .robosub-page .join-content p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+  }
+  
+  .robosub-page .join-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .robosub-page .join-buttons .btn {
+    min-width: 180px;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+  }
+  
+ 
+  
+  /* Button Styles */
+  .robosub-page .btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #fa4616;
+    color: white;
+    font-weight: 500;
+    border-radius: 4px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+  
+  .robosub-page .btn-primary {
+    background-color: #fa4616;
+    color: white;
+  }
+  
+  .robosub-page .btn-primary:hover {
+    background-color: #e03a00;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(250, 70, 22, 0.3);
+    color: white;
+  }
+  
+  .robosub-page .btn-secondary {
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+  }
+  
+  .robosub-page .btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    color: white;
+  }
+  
+  /* Media Queries */
+  @media screen and (max-width: 1200px) {
+    .robosub-page .section {
+      padding: 80px 0;
+    }
+    
+    .robosub-page .container {
+      max-width: 100%;
+      padding: 0 30px;
+    }
+  }
+  
+  @media screen and (max-width: 992px) {
+    .robosub-page .section-header {
+      margin-bottom: 40px;
+    }
+    
+    .robosub-page .info-card {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .robosub-page .info-card-icon {
+      margin-bottom: 15px;
+    }
+    
+    .robosub-page .tech-content h3::after,
+    .robosub-page .future-info h3::after,
+    .robosub-page .spec-highlight h3::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .robosub-page .tech-content,
+    .robosub-page .spec-highlight,
+    .robosub-page .future-info {
+      text-align: center;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .robosub-page .section {
+      padding: 60px 0;
+    }
+    
+    .robosub-page .hero-title {
+      font-size: clamp(2.5rem, 8vw, 4rem);
+    }
+    
+    .robosub-page .strategy-point {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .robosub-page .point-content {
+      text-align: center;
+    }
+    
+    .robosub-page .strategy-conclusion {
+      text-align: center;
+      padding: 15px;
+      border-left: none;
+      border-top: 3px solid var(--color-primary);
+    }
+    
+    .robosub-page .future-timeline {
+      padding: 15px;
+    }
+  
+    .robosub-page .auv-container {
+      width: 90%;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .robosub-page .section {
+      padding: 50px 0;
+    }
+    
+    .robosub-page .hero-title {
+      font-size: 2.2rem;
+    }
+    
+    .robosub-page .hero-subtitle {
+      font-size: 1.1rem;
+    }
+    
+    .robosub-page .section-header h2 {
+      font-size: 1.8rem;
+    }
+    
+    .robosub-page .info-card,
+    .robosub-page .feature-item,
+    .robosub-page .future-feature {
+      padding: 15px;
+    }
+  }
+
+  .robosub-page .robosub-hero-section .container {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  

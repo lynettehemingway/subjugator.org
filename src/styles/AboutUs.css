@@ -1,32 +1,23 @@
-
-/* Hero Section with Blueprint Background */
+/* Hero Section with Team Photo Background - Improved */
 .about-hero-section {
-  height: 100vh;
+  min-height: 70vh;
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-end; /* Changed from center to bottom-align content */
   justify-content: center;
   overflow: hidden;
   background-color: #000000;
-  background-image: url("/src/assets/submarine-blueprint.jpg");
-  background-size: cover;
+  background-image: url("/src/assets/team-photo.jpg");
+  background-size: contain; /* Changed from cover to contain */
   background-position: center;
-  padding: 0 20px;
+  background-repeat: no-repeat;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 90%; /* Added max-width to constrain the image */
+  border-radius: 12px; /* Optional: rounded corners for container */
 }
 
-.blueprint-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.85) 0%,
-    rgba(0, 0, 0, 0.7) 100%
-  );
-  z-index: 0;
-}
+
 
 .about-hero-section .container {
   position: relative;
@@ -34,23 +25,15 @@
   width: 100%;
   max-width: var(--max-width);
   padding: 0 20px;
-}
-
-.hero-content {
-  max-width: 800px;
-  background-color: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(5px);
-  padding: 40px;
-  border-radius: 8px;
-  text-align: center;
-  margin: 0 auto;
+  margin-bottom: 20px;
 }
 
 .hero-title {
-  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-size: clamp(2rem, 5vw, 3.5rem);
   margin-bottom: 10px;
   color: #ffffff;
   text-align: center;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .hero-divider {
@@ -58,70 +41,17 @@
   width: 80px;
   background: linear-gradient(90deg, #fa4616, #ff8c69);
   margin: 20px auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .hero-subtitle {
-  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-size: clamp(1rem, 2vw, 1.5rem);
   font-weight: 300;
   color: #ffffff;
   margin-top: 0;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-align: center;
-}
-
-.mission-statement {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.mission-statement p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.9);
-  text-align: center;
-}
-
-.scroll-indicator {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: white;
-  animation: fadeInUp 2s ease infinite;
-  z-index: 1;
-}
-
-.scroll-icon {
-  width: 30px;
-  height: 50px;
-  border: 2px solid white;
-  border-radius: 15px;
-  position: relative;
-  margin-bottom: 8px;
-}
-
-.scroll-icon::before {
-  content: "";
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  width: 6px;
-  height: 6px;
-  background: white;
-  border-radius: 50%;
-  transform: translateX(-50%);
-  animation: scrollDown 2s infinite;
-}
-
-.scroll-text {
-  font-size: 12px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: white;
-  margin: 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 /* Common Section Styles - VERTICAL LAYOUT */
@@ -737,7 +667,6 @@
   backdrop-filter: blur(5px);
   padding: 40px;
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .join-content h2 {

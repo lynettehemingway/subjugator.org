@@ -92,6 +92,7 @@
   justify-content: center;
   margin-top: 2rem;
   width: 100%;
+  opacity: 0;
 }
 
 .hero-cta .btn {
@@ -478,49 +479,56 @@
   transform: translateX(4px);
 }
 
-/* CTA Section */
+/* ========== CTA Section (Join the Journey) ========== */
 .cta-section {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+  padding: 100px 0; /* Increase vertical padding */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
     url("/src/assets/cta-background.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  padding: var(--space-xxl) 0;
   text-align: center;
 }
 
-.hero-cta {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  margin-top: 2rem;
-  width: 100%;
-  opacity: 0;
-}
 .cta-content {
-  max-width: 800px;
+  max-width: 800px; /* Match the About Us join section max-width */
   margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(5px);
+  padding: 40px; /* Increase padding for better spacing */
+  border-radius: 8px;
 }
 
 .cta-content h2 {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
-  margin-bottom: var(--space-md);
+  font-size: clamp(2.2rem, 5vw, 3rem); /* Consistent heading size */
+  margin-bottom: 20px;
+  color: #fff;
 }
 
 .cta-content p {
-  font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.85); /* Improved contrast */
-  margin-bottom: var(--space-xl);
+  font-size: 1.2rem; /* Consistent paragraph font-size */
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 40px;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  line-height: 1.7;
 }
 
 .cta-buttons {
   display: flex;
-  gap: var(--space-md);
+  gap: 20px;
   justify-content: center;
+  flex-wrap: wrap;
 }
+
+.cta-buttons .btn {
+  min-width: 180px;
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
 
 .btn {
   display: inline-block;
