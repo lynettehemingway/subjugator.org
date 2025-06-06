@@ -608,6 +608,7 @@ function AUVTechnology() {
   };
 
   return (
+    <div className="main-content">
     <div className="auv-technology-page">
       {/* Hero Section with 3D Model */}
       <section className="hero-section" id="overview">
@@ -954,6 +955,7 @@ function AUVTechnology() {
           </div>
         </div>
       </section>
+    </div>
     </div>
   );
 }

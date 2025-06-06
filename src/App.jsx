@@ -1,6 +1,5 @@
-// App.jsx
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Home from "./Pages/Home";
 import AboutUs from "./Pages/AboutUs";
@@ -12,10 +11,13 @@ import OurTeam from "./Pages/OurTeam";
 import "./App.css";
 
 function App() {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
   return (
     <div className="app">
       <Navbar />
-      <main className="main-content">
+      <main className={isHome ? "" : "main-content"}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/aboutus" element={<AboutUs />} />
@@ -26,7 +28,6 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
-      {/* We'll add a footer component later */}
     </div>
   );
 }

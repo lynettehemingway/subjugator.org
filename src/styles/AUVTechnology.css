@@ -6,7 +6,7 @@
 
 /* ========== Hero Section with 3D Model ========== */
 .hero-section {
-  height: 100vh;
+  height:calc(100vh - var(--navbar-height));
   position: relative;
   display: flex;
   align-items: center;
