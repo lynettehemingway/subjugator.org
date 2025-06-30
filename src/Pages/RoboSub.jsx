@@ -106,8 +106,8 @@ function RoboSub() {
             
             <div className={`auv-container ${auvVisible ? 'auv-visible' : ''}`}>
               <img 
-                src="/src/assets/subjugator8-hero.png" 
-                alt="SubjuGator 8 AUV" 
+                src="/src/assets/submarines/subjugator_9.1.png" 
+                alt="SubjuGator 9 AUV" 
                 className="auv-image"
               />
               <div className="auv-glow"></div>
@@ -166,21 +166,25 @@ function RoboSub() {
             <h2>Competition Vehicle</h2>
             <div className="section-divider"></div>
             <p className="subtitle">
-              Meet SubjuGator 8, our flagship autonomous underwater vehicle
+              Meet SubjuGator 9, our flagship autonomous underwater vehicle
             </p>
           </div>
 
           <div className="vehicle-showcase">
             <div className="vehicle-image-container">
-              <img src="/src/assets/subjugator8-full.jpg" alt="SubjuGator 8" className="vehicle-image" />
-              <div className="image-caption">SubjuGator 8 - University of Florida's AUV</div>
+              <img src="/src/assets/submarines/sub9_cherry_1.png" alt="SubjuGator 9" className="vehicle-image" />
+              <div className="image-caption">Subjugator 9 - First Swim</div>
             </div>
 
             <div className="vehicle-info">
               <div className="spec-highlight">
-                <h3>SubjuGator 8</h3>
+                <h3>SubjuGator 9</h3>
                 <p>
-                  SubjuGator 8 has served as the flagship autonomous submarine for the Machine Intelligence Laboratory (MIL) at the University of Florida for the past five years. It features a modular design that allows for rapid iteration and improvement of individual components.
+                  SubjuGator 9 represents the
+                culmination of years of research and competition experience.
+                With a completely redesigned aluminum chassis and electronics
+                hull, this next-generation AUV pushes the boundaries of
+                what's possible in autonomous underwater robotics.
                 </p>
                 <div className="specs-grid">
                   <div className="spec-item">
@@ -197,16 +201,14 @@ function RoboSub() {
                   </div>
                   <div className="spec-item">
                     <span className="spec-label">Framework</span>
-                    <span className="spec-value">ROS Noetic</span>
+                    <span className="spec-value">ROS 2 Jazzy</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="tech-button-container">
-            <Link to="/technical-design" className="btn btn-primary">Technical Design Report</Link>
-          </div>
+          
         </div>
       </section>
 
@@ -225,7 +227,7 @@ function RoboSub() {
             <div className="tech-content">
               <h3>Innovative Design</h3>
               <p>
-                The mechanical design of SubjuGator 8 incorporates four independently operated electronic servo mechanisms: a gripper, two torpedo launchers, and a marker dropper. These mechanisms are used to complete mission-specific tasks, and they are controlled through the servo controller board housed in a separate, compact pressure vessel.
+                The mechanical design of SubjuGator 9 incorporates three independently operated electronic servo mechanisms: a gripper, torpedo launcher, and a ball dropper. These mechanisms are used to complete mission-specific tasks, and they are controlled through ...
               </p>
               <div className="features-list">
                 <div className="feature-item">
@@ -237,13 +239,13 @@ function RoboSub() {
                   <p>CNC milled and abrasive water-jetted aluminum components replaced many previously 3D printed parts for improved durability.</p>
                 </div>
                 <div className="feature-item">
-                  <h4>Redundant Thruster Configuration</h4>
+                  <h4>Thruster Configuration</h4>
                   <p>Eight thrusters provide full six degrees of freedom control with built-in redundancy for mission reliability.</p>
                 </div>
               </div>
             </div>
             <div className="tech-image-container">
-              <img src="/src/assets/mechanical-system.jpg" alt="SubjuGator 8 Mechanical System" className="tech-image" />
+              <img src="/src/assets/mechanical-system.jpg" alt="SubjuGator 9 Mechanical System" className="tech-image" />
               <div className="image-overlay">
                 <div className="image-overlay-content">
                   <h4>Servo Actuators</h4>
@@ -268,7 +270,7 @@ function RoboSub() {
 
           <div className="tech-grid reverse">
             <div className="tech-image-container">
-              <img src="/src/assets/electrical-system.jpg" alt="SubjuGator 8 Electrical Architecture" className="tech-image" />
+              <img src="/src/assets/electrical-system.jpg" alt="SubjuGator 9 Electrical Architecture" className="tech-image" />
               <div className="image-overlay">
                 <div className="image-overlay-content">
                   <h4>Student-Designed PCBs</h4>
@@ -279,7 +281,7 @@ function RoboSub() {
             <div className="tech-content">
               <h3>Robust Electrical Systems</h3>
               <p>
-                SubjuGator 8 consists of a robust set of embedded industry standards and student-designed electronic devices. Peripheral to the main computer is a suite of devices to aid in navigation, safety, power delivery, and communication.
+                SubjuGator 9 consists of a robust set of embedded industry standards and student-designed electronic devices. Peripheral to the main computer is a suite of devices to aid in navigation, safety, power delivery, and communication.
               </p>
               <div className="features-list">
                 <div className="feature-item">
@@ -315,12 +317,12 @@ function RoboSub() {
             <div className="tech-content">
               <h3>Advanced Autonomy</h3>
               <p>
-                SubjuGator 8's software stack is built on the Noetic version of the Robot Operating System (ROS). Our stack has grown to over 60+ ROS packages, all of which are open-source, allowing other teams to share the benefits of our work.
+                SubjuGator 9's software stack is built on the Jazzy version of the Robot Operating System 2 (ROS2). Our stack has grown to over 60+ ROS packages, all of which are open-source, allowing other teams to share the benefits of our work.
               </p>
               <div className="features-list">
                 <div className="feature-item">
                   <h4>State Estimation</h4>
-                  <p>An unscented Kalman filter operating on manifolds provides efficient handling of attitude singularities, fusing data from IMU, DVL, and other sensors.</p>
+                  <p>An Extended Kalman filter operating on manifolds provides efficient handling of attitude singularities, fusing data from IMU, DVL, and other sensors.</p>
                 </div>
                 <div className="feature-item">
                   <h4>Computer Vision</h4>
@@ -333,7 +335,7 @@ function RoboSub() {
               </div>
             </div>
             <div className="tech-image-container">
-              <img src="/src/assets/software-system.jpg" alt="SubjuGator 8 Software Architecture" className="tech-image" />
+              <img src="/src/assets/simulation_enviornment.png" alt="SubjuGator 8 Software Architecture" className="tech-image" />
               <div className="image-overlay">
                 <div className="image-overlay-content">
                   <h4>Simulation Environment</h4>
@@ -358,7 +360,7 @@ function RoboSub() {
 
           <div className="strategy-content">
             <div className="strategy-image-container">
-              <img src="/src/assets/competition-strategy.jpg" alt="RoboSub Competition" className="strategy-image" />
+              <img src="/src/assets/robosub_logo.png" alt="RoboSub Competition" className="strategy-image" />
             </div>
             
             <div className="strategy-text">

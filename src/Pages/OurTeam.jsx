@@ -14,7 +14,6 @@ const memberImages = Object.fromEntries(
   ])
 );
 
-/* ---------- helpers ---------- */
 const toSlug = (name) =>
   name.toLowerCase().replace(/[^a-z0-9\s]/g, "").trim().replace(/\s+/g, "_");
 
@@ -80,11 +79,9 @@ function OurTeam() {
   /* devtools verification – run once */
   useEffect(() => {
     console.table(teamMembers.map((m) => ({ name: m.name, imgFound: !!m.img })));
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
+  }, []); 
   return (
     <main className="our-team-page">
-      {/* ----- hero title only ----- */}
       <section className="hero container-fluid text-center">
         <h1 className="hero-title">
           <span className="highlight">2025&nbsp;Team&nbsp;</span>
@@ -92,7 +89,7 @@ function OurTeam() {
         </h1>
       </section>
 
-      {/* ----- grid section (has its own shaded background) ----- */}
+      {/* ----- grid section ----- */}
       <section className="team-section">
         <div className="team-section__inner container-xl">
           <p className="grid-subtitle" role="presentation">

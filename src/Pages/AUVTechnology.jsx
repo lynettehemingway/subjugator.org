@@ -158,10 +158,10 @@ function AUVTechnology() {
       description:
         "SubjuGator features precision-engineered mechanical systems, including servo-actuated mechanisms and a carbon fiber frame.",
       list: [
-        "Servo-actuated gripper with serrated aluminum jaws",
+        "Servo-actuated gripper with serrated jaws",
         "Dual torpedo launchers with rack and pinion actuators",
-        "Marker dropper with rotational mechanism",
-        "Eight-thruster configuration for redundant motion control",
+        "Ball dropper with rotational mechanism",
+        "Eight-thruster configuration for robust motion control",
         "Carbon fiber and aluminum space-frame chassis",
       ],
     },
@@ -184,7 +184,7 @@ function AUVTechnology() {
       description:
         "Built on ROS (Robot Operating System), SubjuGator's software enables advanced autonomy and perception.",
       list: [
-        "Custom state estimation using unscented Kalman filter",
+        "Custom state estimation using Extended Kalman filter",
         "Trajectory generation and control system",
         "Computer vision with deep neural networks (YOLO)",
         "Asynchronous mission planning infrastructure",
@@ -725,27 +725,36 @@ function AUVTechnology() {
             </p>
           </div>
 
-          <div className="specs-grid">
-            <SpecCard
-              icon={technicalSpecs.mechanical.icon}
-              title={technicalSpecs.mechanical.title}
-              description={technicalSpecs.mechanical.description}
-              list={technicalSpecs.mechanical.list}
-            />
+          <div className="specs-grid-wrapper">
 
-            <SpecCard
-              icon={technicalSpecs.electrical.icon}
-              title={technicalSpecs.electrical.title}
-              description={technicalSpecs.electrical.description}
-              list={technicalSpecs.electrical.list}
-            />
+            <div className="specs-grid">
+              <SpecCard
+                icon={technicalSpecs.mechanical.icon}
+                title={technicalSpecs.mechanical.title}
+                description={technicalSpecs.mechanical.description}
+                list={technicalSpecs.mechanical.list}
+              />
 
-            <SpecCard
-              icon={technicalSpecs.software.icon}
-              title={technicalSpecs.software.title}
-              description={technicalSpecs.software.description}
-              list={technicalSpecs.software.list}
-            />
+              <SpecCard
+                icon={technicalSpecs.electrical.icon}
+                title={technicalSpecs.electrical.title}
+                description={technicalSpecs.electrical.description}
+                list={technicalSpecs.electrical.list}
+              />
+
+              <SpecCard
+                icon={technicalSpecs.software.icon}
+                title={technicalSpecs.software.title}
+                description={technicalSpecs.software.description}
+                list={technicalSpecs.software.list}
+              />
+            </div>
+
+            <div className="tech-button-container over-grid">
+              <Link to="/technical-design" className="btn btn-primary">
+                Technical Design Report
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -771,15 +780,13 @@ function AUVTechnology() {
                 <span className="text-gradient-blue">Control System</span>
               </h3>
               <p>
-                Our state-of-the-art control system uses an unscented Kalman
+                Our state-of-the-art control system uses an Extended Kalman
                 filter operating on manifolds to efficiently handle attitude
                 singularities. The trajectory generator produces 3rd-order
                 continuous trajectories while accounting for vehicle
                 constraints.
               </p>
-              <Link to="/publications" className="btn btn-secondary">
-                Read Research Paper
-              </Link>
+              
             </div>
           </div>
 
@@ -798,9 +805,6 @@ function AUVTechnology() {
                 competition elements and navigate dynamic underwater
                 environments.
               </p>
-              <Link to="/software" className="btn btn-secondary">
-                Explore Vision System
-              </Link>
             </div>
           </div>
 
@@ -820,61 +824,6 @@ function AUVTechnology() {
                 aluminum components manufactured using precision CNC and
                 water-jet cutting techniques.
               </p>
-              <Link to="/mechanical" className="btn btn-secondary">
-                See Design Details
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Next Generation Section */}
-      <section className="next-gen-section section" id="next-gen">
-        <div className="container">
-          <div className="section-header">
-            <h2>SubjuGator 9</h2>
-            <div className="section-divider"></div>
-            <p className="subtitle">
-              The next generation of autonomous underwater excellence
-            </p>
-          </div>
-
-          <div className="next-gen-content">
-            <div className="next-gen-image">
-              {/* This will be a background image set in CSS */}
-            </div>
-            <div className="next-gen-info">
-              <h3>Evolution of Innovation</h3>
-              <p>
-                Currently in development, SubjuGator 9 represents the
-                culmination of years of research and competition experience.
-                With a completely redesigned aluminum chassis and electronics
-                hull, this next-generation AUV will push the boundaries of
-                what's possible in autonomous underwater robotics.
-              </p>
-              <div className="next-gen-features">
-                <div className="next-gen-feature">
-                  <h4>Enhanced Chassis</h4>
-                  <p>
-                    Fully CNC-machined from 6061-T6 aluminum for optimal
-                    strength and weight
-                  </p>
-                </div>
-                <div className="next-gen-feature">
-                  <h4>Advanced Electronics</h4>
-                  <p>
-                    Redesigned electronics hull with improved thermal management
-                    and expanded sensor capacity
-                  </p>
-                </div>
-                <div className="next-gen-feature">
-                  <h4>Next-Gen Software</h4>
-                  <p>
-                    Enhanced autonomy algorithms and improved mission planning
-                    capabilities
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -893,29 +842,19 @@ function AUVTechnology() {
           </div>
 
           <div className="resources-grid">
-            <Link to="/technical-documentation" className="resource-card">
-              <div className="resource-icon">
-                <FaCogs />
-              </div>
-              <h3>Mechanical Documentation</h3>
-              <p>Detailed specifications, CAD files, and assembly guides</p>
-            </Link>
-
-            <Link to="/electrical-systems" className="resource-card">
-              <div className="resource-icon">
-                <FaBolt />
-              </div>
-              <h3>Electrical Schematics</h3>
-              <p>PCB designs, wiring diagrams, and component datasheets</p>
-            </Link>
-
-            <Link to="/software-repository" className="resource-card">
+            
+            <a
+              href="https://github.com/uf-mil/mil2"
+              className="resource-card"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <div className="resource-icon">
                 <FaLaptopCode />
               </div>
               <h3>Software Repository</h3>
               <p>Open-source codebase, ROS packages, and development guides</p>
-            </Link>
+            </a>
 
             <a
               href="/assets/SubjuGator_Technical_Paper.pdf"
