@@ -535,7 +535,7 @@
   letter-spacing: 0.02em;
 }
 
-.image-sub9   { background-image: url("/src/assets/updates/sub9.jpg"); }
+.image-sub9   { background-image: url("src/assets/submarines/sub9_development.jpg"); }
 .image-robosub{ background-image: url("/src/assets/robosub_preparation.png"); }
 .update-image { background-size: cover; background-position: center; }
 

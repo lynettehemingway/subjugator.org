@@ -193,11 +193,11 @@ function RoboSub() {
                   </div>
                   <div className="spec-item">
                     <span className="spec-label">Computing</span>
-                    <span className="spec-value">Intel i9-9900k + Nvidia RTX 2080</span>
+                    <span className="spec-value">Arm Cortex-A78AE CPU</span>
                   </div>
                   <div className="spec-item">
                     <span className="spec-label">Power</span>
-                    <span className="spec-value">22.2V LiPo Batteries</span>
+                    <span className="spec-value">14.8V LiPo Batteries</span>
                   </div>
                   <div className="spec-item">
                     <span className="spec-label">Framework</span>
@@ -226,12 +226,20 @@ function RoboSub() {
           <div className="tech-grid">
             <div className="tech-content">
               <h3>Innovative Design</h3>
-              <p>
-                The mechanical design of SubjuGator 9 incorporates three independently operated electronic servo mechanisms: a gripper, torpedo launcher, and a ball dropper. These mechanisms are used to complete mission-specific tasks, and they are controlled through ...
-              </p>
+              
               <div className="features-list">
+
                 <div className="feature-item">
-                  <h4>Space-Frame Chassis</h4>
+                  <h4>Mechanisms</h4>
+                  <p>
+                    Three independently
+                    operated electronic servo mechanisms: a gripper,
+                    torpedo launcher, and a ball dropper.
+                  </p>
+                </div>
+
+                <div className="feature-item">
+                  <h4>Durable Frame</h4>
                   <p>Carbon fiber tubes and aluminum sheet sections provide protection for delicate components while enabling modularity.</p>
                 </div>
                 <div className="feature-item">
@@ -245,11 +253,10 @@ function RoboSub() {
               </div>
             </div>
             <div className="tech-image-container">
-              <img src="/src/assets/mechanical-system.jpg" alt="SubjuGator 9 Mechanical System" className="tech-image" />
+              <img src="src/assets/submarines/sub9_1.jpeg" alt="SubjuGator 9 Mechanical System" className="tech-image" />
               <div className="image-overlay">
                 <div className="image-overlay-content">
-                  <h4>Servo Actuators</h4>
-                  <p>Waterproof servo system ensures reliable actuation for all manipulation tasks</p>
+                  <h4> SubjuGator 9 Frame</h4>
                 </div>
               </div>
             </div>

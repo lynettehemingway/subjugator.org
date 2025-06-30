@@ -37,17 +37,17 @@ const SponsorSection = ({ title, sponsors }) => (
 const Sponsors = () => {
   const diamondSponsors = [
     {
+      name: "Sylphase",
+      url: "https://sylphase.com",
+      imgSrc: sylphaseLogo,
+      imgAlt: "Sylphase Logo",
+    },
+    {
       name: "L3Harris Technologies",
       url: "https://l3harris.com",
       imgSrc:
         "https://upload.wikimedia.org/wikipedia/en/thumb/2/23/L3Harris_Technologies_logo.svg/1280px-L3Harris_Technologies_logo.svg.png",
       imgAlt: "L3Harris Logo",
-    },
-    {
-      name: "Sylphase",
-      url: "https://sylphase.com",
-      imgSrc: sylphaseLogo,
-      imgAlt: "Sylphase Logo",
     },
     {
       name: "Erik de la Inglesia",
