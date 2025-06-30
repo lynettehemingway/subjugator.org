@@ -231,7 +231,7 @@ function AboutUs() {
                 <div
                   className="milestone-image"
                   style={{
-                    backgroundImage: "url('/src/assets/subjugator1.jpg')",
+                    backgroundImage: "url('/src/assets/submarines/subjugator_1.png')",
                   }}
                 ></div>
                 <div className="milestone-details">
@@ -257,7 +257,7 @@ function AboutUs() {
                 <div
                   className="milestone-image"
                   style={{
-                    backgroundImage: "url('/src/assets/subjugator3.jpg')",
+                    backgroundImage: "url('/src/assets/submarines/subjugator_3.png')",
                   }}
                 ></div>
                 <div className="milestone-details">
@@ -283,7 +283,7 @@ function AboutUs() {
                 <div
                   className="milestone-image"
                   style={{
-                    backgroundImage: "url('/src/assets/subjugator6.jpg')",
+                    backgroundImage: "url('/src/assets/submarines/subjugator_6.png')",
                   }}
                 ></div>
                 <div className="milestone-details">
@@ -309,7 +309,7 @@ function AboutUs() {
                 <div
                   className="milestone-image"
                   style={{
-                    backgroundImage: "url('/src/assets/subjugator8.jpg')",
+                    backgroundImage: "url('/src/assets/submarines/subjugator_8.png')",
                   }}
                 ></div>
                 <div className="milestone-details">
@@ -335,7 +335,7 @@ function AboutUs() {
                 <div
                   className="milestone-image"
                   style={{
-                    backgroundImage: "url('/src/assets/subjugator9.jpg')",
+                    backgroundImage: "url('/src/assets/submarines/subjugator_9.png')",
                   }}
                 ></div>
                 <div className="milestone-details">
