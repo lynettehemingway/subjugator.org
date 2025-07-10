@@ -24,11 +24,15 @@
   padding: 0 var(--space-lg);
 }
 
+
 .nav-logo {
-  height: 45px;
-  width: auto;
+  --logo-h: clamp(135px, 6vw, 130px);
+  height: var(--logo-h);
+  width: calc(var(--logo-h) * 3.1);
+  background: url("/src/assets/subjugator_logo.png") center/contain no-repeat;
   transition: opacity var(--transition-fast);
 }
+
 
 .nav-logo:hover {
   opacity: 0.8;

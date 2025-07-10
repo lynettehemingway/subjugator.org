@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "../styles/OurTeam.css";
 
@@ -63,10 +64,12 @@ function OurTeam() {
     { name: "Ryan Hoburg", role: "Mechanical Lead" },
     { name: "Alex Johnson", role: "Software Lead" },
     { name: "Carlos Chavez", role: "Software Lead" },
+    { name: "Eric(Jack) Rainville", role: "Electrical Lead" },
     { name: "Ethan Mitchell", role: "Electrical Member" },
     { name: "Keith Khadar", role: "Software Lead" },
     { name: "Daniel Parra", role: "Software Lead" },
     { name: "Lorant Domokos", role: "Mechanical Lead" },
+
     
   ];
 
@@ -76,13 +79,29 @@ function OurTeam() {
     img: resolveImage(toSlug(m.name)),
   }));
 
+  const location = useLocation();
+  
+  useEffect(() => {
+    const hash = location.hash;
+    if (hash) {
+      // Delay to ensure the target element is rendered
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    }
+  }, [location]);
+  
+
   /* devtools verification – run once */
   useEffect(() => {
     console.table(teamMembers.map((m) => ({ name: m.name, imgFound: !!m.img })));
   }, []); 
   return (
     <main className="our-team-page">
-      <section className="hero container-fluid text-center">
+      <section className="hero container-fluid text-center" id="top-team">
         <h1 className="hero-title">
           <span className="highlight">2025&nbsp;Team&nbsp;</span>
           Members

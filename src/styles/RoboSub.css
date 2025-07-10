@@ -875,4 +875,11 @@
     opacity: 1;
     transform: translateY(0);
   }
-  
+
+.hero-bg       { background-image: url("/src/assets/submarine-hero.jpg"); }
+.hero-auv      { content: url("/src/assets/submarines/subjugator_9.1.png"); }
+.image-sub9-swim { content: url("/src/assets/submarines/sub9_cherry_1.png"); }
+.image-sub9-frame { content: url("/src/assets/submarines/sub9_1.jpeg"); }
+.image-electrical { content: url("/src/assets/PCB.png"); }
+.image-sim-env    { content: url("/src/assets/simulation_enviornment.png"); }
+.image-robosub-logo { content: url("/src/assets/robosub_logo.png"); }

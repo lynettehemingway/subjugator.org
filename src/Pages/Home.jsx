@@ -113,10 +113,10 @@ function Home() {
               Exploring the Depths of Innovation
             </p>
             <div className="hero-cta" ref={ctaRef}>
-              <Link to="/auv-technology" className="btn btn-primary">
+              <Link to="/auv-technology#overview" className="btn btn-primary">
                 Explore Technology
               </Link>
-              <Link to="/robosub" className="btn btn-secondary">
+              <Link to="/robosub#top" className="btn btn-secondary">
                 Learn About RoboSub
               </Link>
             </div>
@@ -205,7 +205,7 @@ function Home() {
                 </div>
               </div>
             </div>
-            <Link to="/auv-technology" className="btn btn-primary">
+            <Link to="/auv-technology#tech-specs" className="btn btn-primary">
               Explore Full Capabilities
             </Link>
           </div>
@@ -234,7 +234,10 @@ function Home() {
               </div>
             </div>
 
-            {/* — 2 — (middle card – we’ll nudge it down in CSS) */}
+            {/* — 2 — */}
+            <CountdownCard targetDate="2025-08-11T00:00:00-04:00" />
+
+            {/* — 3 — */}
             <div className="update-card middle-offset">
               <div className="update-image image-robosub" />
               <div className="update-content">
@@ -246,10 +249,7 @@ function Home() {
                 </p>
                 <Link to="/robosub#competition-strategy" className="read-more">Read More</Link>
               </div>
-            </div>
-
-            {/* — 3 — new live countdown to Aug 11 */}
-            <CountdownCard targetDate="2025-08-11T00:00:00-04:00" />
+            </div>  
           </div>
         </div>
       </section>
@@ -265,10 +265,19 @@ function Home() {
               technology. Connect with our team or support our mission.
             </p>
             <div className="cta-buttons">
-              <Link to="/ourteam" className="btn btn-primary">
+              <Link to="/ourteam#top-team" className="btn btn-primary">
                 Meet Our Team
               </Link>
-              <Link to="/sponsors" className="btn btn-secondary">
+              <Link
+                to="/sponsors#top-sponsor"
+                className="btn btn-secondary"
+                onClick={() => {
+                  const el = document.querySelector("#top-sponsor");
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
+              >
                 Become a Sponsor
               </Link>
             </div>

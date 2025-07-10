@@ -46,12 +46,7 @@ function Navbar() {
     <header className={`header ${scrolled ? "scrolled" : ""}`}>
       <div className="navbar-container">
         {/* Logo */}
-        <Link to="/" className="logo-link" onClick={closeMenu}>
-          <img
-            src="/src/assets/logo.png"
-            alt="SubjuGator Logo"
-            className="nav-logo"
-          />
+        <Link to="/" className="logo-link nav-logo" onClick={closeMenu}>
         </Link>
 
         {/* Navigation */}

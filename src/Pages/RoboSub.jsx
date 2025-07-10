@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { 
   FaRobot, 
@@ -69,6 +70,21 @@ function RoboSub() {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
 
+  const location = useLocation();
+
+  useEffect(() => {
+    const hash = location.hash;
+    if (hash) {
+      // Delay to ensure the target element is rendered
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    }
+  }, [location]);
+
   useEffect(() => {
     // Force immediate display of elements instead of relying on animations
     const heroBackground = heroBackgroundRef.current;
@@ -90,7 +106,7 @@ function RoboSub() {
 
   return (
     <div className="robosub-page">
-      <section className="robosub-hero-section">
+      <section className="robosub-hero-section" id="top">
         <div className="hero-background" ref={heroBackgroundRef}>
           {/* Background image now set with inline style as fallback */}
           <div className="background-fallback"></div>
@@ -106,9 +122,8 @@ function RoboSub() {
             
             <div className={`auv-container ${auvVisible ? 'auv-visible' : ''}`}>
               <img 
-                src="/src/assets/submarines/subjugator_9.1.png" 
                 alt="SubjuGator 9 AUV" 
-                className="auv-image"
+                className="auv-image hero-auv"
               />
               <div className="auv-glow"></div>
             </div>
@@ -172,7 +187,7 @@ function RoboSub() {
 
           <div className="vehicle-showcase">
             <div className="vehicle-image-container">
-              <img src="/src/assets/submarines/sub9_cherry_1.png" alt="SubjuGator 9" className="vehicle-image" />
+              <img alt="SubjuGator 9" className="vehicle-image image-sub9-swim" />
               <div className="image-caption">Subjugator 9 - First Swim</div>
             </div>
 
@@ -193,7 +208,7 @@ function RoboSub() {
                   </div>
                   <div className="spec-item">
                     <span className="spec-label">Computing</span>
-                    <span className="spec-value">Arm Cortex-A78AE CPU</span>
+                    <span className="spec-value">Nvidia Jetson Orion NX</span>
                   </div>
                   <div className="spec-item">
                     <span className="spec-label">Power</span>
@@ -253,7 +268,7 @@ function RoboSub() {
               </div>
             </div>
             <div className="tech-image-container">
-              <img src="src/assets/submarines/sub9_1.jpeg" alt="SubjuGator 9 Mechanical System" className="tech-image" />
+              <img alt="SubjuGator 9 Mechanical System" className="tech-image image-sub9-frame"/>
               <div className="image-overlay">
                 <div className="image-overlay-content">
                   <h4> SubjuGator 9 Frame</h4>
@@ -277,11 +292,10 @@ function RoboSub() {
 
           <div className="tech-grid reverse">
             <div className="tech-image-container">
-              <img src="/src/assets/electrical-system.jpg" alt="SubjuGator 9 Electrical Architecture" className="tech-image" />
+              <img alt="SubjuGator 9 Electrical Architecture" className="tech-image image-electrical"/>
               <div className="image-overlay">
                 <div className="image-overlay-content">
                   <h4>Student-Designed PCBs</h4>
-                  <p>Custom boards for thruster control, power management, and sensor integration</p>
                 </div>
               </div>
             </div>
@@ -300,8 +314,8 @@ function RoboSub() {
                   <p>Hall-effect-based manual shut-off feature allows immediate power cutoff to thrusters for safety during testing and competitions.</p>
                 </div>
                 <div className="feature-item">
-                  <h4>Water Cooling System</h4>
-                  <p>Closed-loop water cooling ensures optimal thermal efficiency for the main computer and GPGPU.</p>
+                  <h4>Open Architecture</h4>
+                  <p>Subjuss computers and sesnors are connected via a gigabit Ethernet switch. Adding and removing systems is as simple as connecting or disconnecting network devices.</p>
                 </div>
               </div>
             </div>
@@ -342,7 +356,7 @@ function RoboSub() {
               </div>
             </div>
             <div className="tech-image-container">
-              <img src="/src/assets/simulation_enviornment.png" alt="SubjuGator 8 Software Architecture" className="tech-image" />
+              <img src="/src/assets/simulation_enviornment.png" alt="SubjuGator 8 Software Architecture" className="tech-image image-sim-env" />
               <div className="image-overlay">
                 <div className="image-overlay-content">
                   <h4>Simulation Environment</h4>
@@ -367,7 +381,7 @@ function RoboSub() {
 
           <div className="strategy-content">
             <div className="strategy-image-container">
-              <img src="/src/assets/robosub_logo.png" alt="RoboSub Competition" className="strategy-image" />
+              <img src="/src/assets/robosub_logo.png" alt="RoboSub Competition" className="strategy-image image-robosub-logo" />
             </div>
             
             <div className="strategy-text">

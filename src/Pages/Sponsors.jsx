@@ -1,5 +1,6 @@
 // src/Pages/Sponsors.jsx
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "../styles/Sponsors.css";
 
 // local logo & pdf imports
@@ -89,10 +90,25 @@ const Sponsors = () => {
     { name: "DigiKey", url: "https://www.digikey.com", imgSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/DigiKey_logo.svg/1280px-DigiKey_logo.svg.png", imgAlt: "DigiKey Logo" },
   ];
 
+  const location = useLocation();
+
+  useEffect(() => {
+    const hash = location.hash;
+    if (hash) {
+      // Delay to ensure the target element is rendered
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    }
+  }, [location]);
+
   return (
     <main className="sponsors-page">
       {/* ----- hero ----- */}
-      <section className="hero container-fluid text-center">
+      <section className="hero container-fluid text-center" id="top-sponsor">
         <h1 className="hero-title">2025 Sponsors</h1>
         <p className="hero-subtitle">
           We have been very fortunate to have generous partners in industry and at the University of Florida to support the SubjuGator project. Listed below are active sponsors for the SubjuGator project at the University of Florida. For more information about becoming a sponsor, please see our sponsorship packet below.

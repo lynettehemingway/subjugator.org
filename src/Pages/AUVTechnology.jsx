@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {
   FaCogs,
@@ -12,6 +13,10 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import "../styles/AUVTechnology.css";
+import techReport from "../assets/Design_and_Development_of_SubjuGator_9.pdf"; 
+
+
+
 
 // Helper component for hotspots that appear on the 3D model
 const Hotspot = ({ id, title, isActive, onClick }) => {
@@ -65,6 +70,21 @@ function AUVTechnology() {
   const [viewMode, setViewMode] = useState("complete"); // complete or exploded
   const [infoVisible, setInfoVisible] = useState(true);
   const [isModelLoaded, setIsModelLoaded] = useState(false);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const hash = location.hash;
+    if (hash) {
+      // Delay to ensure the target element is rendered
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    }
+  }, [location]);
 
   // Define hotspots to display on the model
   const hotspots = [
@@ -172,7 +192,6 @@ function AUVTechnology() {
         "Custom-designed electrical infrastructure provides reliable power, communications, and sensor integration.",
       list: [
         "Battery monitoring system with voltage and current tracking",
-        "CAN bus for internal communications",
         "Water-cooling system for optimal thermal management",
         "Custom thruster/kill board for safety and control",
         "Multi-level power regulation for various subsystems",
@@ -751,9 +770,9 @@ function AUVTechnology() {
             </div>
 
             <div className="tech-button-container over-grid">
-              <Link to="/technical-design" className="btn btn-primary">
+              <a href={techReport} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
                 Technical Design Report
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -857,7 +876,7 @@ function AUVTechnology() {
             </a>
 
             <a
-              href="/assets/SubjuGator_Technical_Paper.pdf"
+              href={techReport}
               className="resource-card"
               target="_blank"
               rel="noopener noreferrer"
@@ -883,10 +902,10 @@ function AUVTechnology() {
               Want to learn more about SubjuGator or get involved with our team?
             </p>
             <div className="cta-buttons">
-              <Link to="/robosub" className="btn btn-primary">
+              <Link to="/robosub#top" className="btn btn-primary">
                 RoboSub Competition
               </Link>
-              <Link to="/ourteam" className="btn btn-secondary">
+              <Link to="/ourteam#top-team" className="btn btn-secondary">
                 Meet The Team
               </Link>
             </div>
