@@ -1,7 +1,49 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaCogs, FaBolt, FaLaptopCode } from "react-icons/fa";
 import "../styles/Home.css";
+
+
+
+function CountdownCard({ targetDate }) {
+  const [timeLeft, setTimeLeft] = useState(getDiff());
+
+  function getDiff() {
+    const diff = new Date(targetDate) - new Date();
+    return diff > 0 ? diff : 0;
+  }
+
+  useEffect(() => {
+    const id = setInterval(() => setTimeLeft(getDiff()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const days  = Math.floor(timeLeft / 8.64e7);
+  const hrs   = Math.floor((timeLeft % 8.64e7) / 3.6e6);
+  const mins  = Math.floor((timeLeft % 3.6e6) / 6e4);
+  const secs  = Math.floor((timeLeft % 6e4) / 1e3);
+
+  return (
+    <div className="update-card countdown-card">
+      <div className="update-content">
+        <h3 className="countdown-title">Countdown to RoboSub 2025</h3>
+        <div className="countdown-clock">
+          <TimeBox label="Days"  value={days}  />
+          <TimeBox label="Hrs"   value={hrs}   />
+          <TimeBox label="Min"   value={mins}  />
+          <TimeBox label="Sec"   value={secs}  />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const TimeBox = ({ value, label }) => (
+  <div className="time-box">
+    <span className="time-value">{String(value).padStart(2, "0")}</span>
+    <span className="time-label">{label}</span>
+  </div>
+);
 
 function Home() {
   const heroBackgroundRef = useRef(null);
@@ -71,10 +113,10 @@ function Home() {
               Exploring the Depths of Innovation
             </p>
             <div className="hero-cta" ref={ctaRef}>
-              <Link to="/auv-technology" className="btn btn-primary">
+              <Link to="/auv-technology#overview" className="btn btn-primary">
                 Explore Technology
               </Link>
-              <Link to="/robosub" className="btn btn-secondary">
+              <Link to="/robosub#top" className="btn btn-secondary">
                 Learn About RoboSub
               </Link>
             </div>
@@ -103,7 +145,7 @@ function Home() {
               <div className="stat-label">Years of Development</div>
             </div>
             <div className="stat-card">
-              <div className="stat-number">8</div>
+              <div className="stat-number">9</div>
               <div className="stat-label">Generations of AUVs</div>
             </div>
             <div className="stat-card">
@@ -163,7 +205,7 @@ function Home() {
                 </div>
               </div>
             </div>
-            <Link to="/auv-technology" className="btn btn-primary">
+            <Link to="/auv-technology#tech-specs" className="btn btn-primary">
               Explore Full Capabilities
             </Link>
           </div>
@@ -178,59 +220,40 @@ function Home() {
           </div>
 
           <div className="updates-grid">
+            {/* — 1 — */}
             <div className="update-card">
-              <div className="update-image">
-                {/* Update image will be background in CSS */}
-              </div>
+              <div className="update-image image-sub9" /> {/* add bg via CSS */}
               <div className="update-content">
-                <span className="update-date">February 28, 2025</span>
+                
                 <h3>SubjuGator 9 Development</h3>
                 <p>
-                  Progress on our next-generation AUV including aluminum chassis
+                  Progress on our new AUV including aluminum chassis
                   completion and electronics hull integration.
                 </p>
-                <Link to="/news" className="read-more">
-                  Read More
-                </Link>
+                <Link to="/auv-technology" className="read-more">Read More</Link>
               </div>
             </div>
 
-            <div className="update-card">
-              <div className="update-image">
-                {/* Update image will be background in CSS */}
-              </div>
+            {/* — 2 — */}
+            <CountdownCard targetDate="2025-08-11T00:00:00-04:00" />
+
+            {/* — 3 — */}
+            <div className="update-card middle-offset">
+              <div className="update-image image-robosub" />
               <div className="update-content">
-                <span className="update-date">January 15, 2025</span>
+                
                 <h3>RoboSub 2025 Preparation</h3>
                 <p>
-                  Team training and technology refinement for the upcoming
+                  Team testing and technology refinement for the upcoming
                   competition season.
                 </p>
-                <Link to="/news" className="read-more">
-                  Read More
-                </Link>
+                <Link to="/robosub#competition-strategy" className="read-more">Read More</Link>
               </div>
-            </div>
-
-            <div className="update-card">
-              <div className="update-image">
-                {/* Update image will be background in CSS */}
-              </div>
-              <div className="update-content">
-                <span className="update-date">December 10, 2024</span>
-                <h3>End-of-Year Achievements</h3>
-                <p>
-                  Celebrating our accomplishments and recognizing team
-                  contributions.
-                </p>
-                <Link to="/news" className="read-more">
-                  Read More
-                </Link>
-              </div>
-            </div>
+            </div>  
           </div>
         </div>
       </section>
+
 
       {/* Call to Action */}
       <section className="cta-section">
@@ -242,10 +265,19 @@ function Home() {
               technology. Connect with our team or support our mission.
             </p>
             <div className="cta-buttons">
-              <Link to="/ourteam" className="btn btn-primary">
+              <Link to="/ourteam#top-team" className="btn btn-primary">
                 Meet Our Team
               </Link>
-              <Link to="/sponsors" className="btn btn-secondary">
+              <Link
+                to="/sponsors#top-sponsor"
+                className="btn btn-secondary"
+                onClick={() => {
+                  const el = document.querySelector("#top-sponsor");
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
+              >
                 Become a Sponsor
               </Link>
             </div>

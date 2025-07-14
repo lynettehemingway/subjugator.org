@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaMapMarkerAlt, FaEnvelope, FaPhone, FaUsers } from "react-icons/fa";
 import "../styles/Contact.css";
+import { useLocation } from "react-router-dom";
+
 
 function Contact() {
   const [formStatus, setFormStatus] = useState("");
@@ -11,6 +13,19 @@ function Contact() {
   const subtitleRef = useRef(null);
   const contactInfoRef = useRef(null);
   const formRef = useRef(null);
+
+  useEffect(() => {
+      const hash = location.hash;
+      if (hash) {
+        // Delay to ensure the target element is rendered
+        setTimeout(() => {
+          const element = document.querySelector(hash);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
+      }
+    }, [location]);
   
   // Initialize form data
   const [formData, setFormData] = useState({
@@ -120,7 +135,7 @@ function Contact() {
   return (
     <div className="contact-page">
       {/* Hero Section */}
-      <section className="contact-hero-section">
+      <section className="contact-hero-section" id="top-contact">
         <div className="hero-background" ref={heroBackgroundRef}>
           {/* Background image is set in CSS */}
         </div>

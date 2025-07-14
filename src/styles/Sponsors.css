@@ -1,0 +1,223 @@
+/* ---------- root palette ---------- */
+:root {
+  --orange: #fa4616;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --shade-bg: #141414;
+}
+
+/* ---------- page shell ---------- */
+.sponsors-page {
+  background-color: #000;
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+/* ---------- hero ---------- */
+.hero {
+  padding-block: clamp(4rem, 8vw, 6rem) 2rem;
+}
+
+.hero-title {
+  color: var(--text-primary);                      /* ensures white text */
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 700;
+  margin: 0;
+}
+
+.hero-title .highlight {
+  background: linear-gradient(90deg, #fa4616, #ff8c69);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;                              /* gradient text */
+}
+
+.hero-subtitle {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}
+
+/* ---------- sponsor tiers ---------- */
+.sponsor-section {
+  padding-block: 5rem;
+}
+
+.sponsor-section__title {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--orange);
+  margin-bottom: 2.5rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.sponsor-section__title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: var(--orange);
+  border-radius: 4px;
+}
+
+.sponsor-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  row-gap: 3rem;
+}
+
+/* ---------- sponsor card ---------- */
+.sponsor-card {
+  background: var(--shade-bg);                     /* dark card body */
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  text-align: center;
+  max-width: 280px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
+}
+
+.sponsor-card:hover {
+  transform: translateY(-4px);
+}
+
+/* ---------- logo image ---------- */
+.sponsor-card__logo {
+  max-width: 100%;
+  max-height: 120px;                               /* larger logos */
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+/* allow explicit up-sizing via .large helper */
+.sponsor-card__logo.large {
+  max-height: 120px;                               /* matches default – keep for clarity */
+}
+
+/* ---------- name & optional description ---------- */
+.sponsor-card__name {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.sponsor-card__description {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+/* no background / box for each sponsor */
+.sponsor-card {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  transition: transform 0.2s ease;
+}
+
+/* enlarge logos a bit */
+.sponsor-card__logo {
+  max-height: 140px;
+  margin-bottom: 0.8rem;
+}
+
+/* remove underline & make company links white */
+.no-style-link {
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+/* company names (inside anchor) inherit white text */
+.company-name a { color: var(--text-primary); }
+
+/* people names stay blue */
+.person-name {
+  color: #3b82f6; /* tailwind blue-500 */
+}
+
+.hero-subtitle {
+  max-width: 720px;
+  margin: 1rem auto;
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.sponsor-footer {
+  padding: 3rem 1rem 4rem;
+}
+
+.sponsor-pdf-link {
+  color: var(--orange);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* footer layout */
+.sponsor-footer {
+  padding: 4rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* big white heading */
+.sponsor-call {
+  font-size: 4.5rem;           /* larger */
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* blue gradient underline */
+.sponsor-underline {
+  display: block;
+  width: 140px;
+  height: 5px;
+  margin: 0.6rem auto 2rem;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #3b82f6 0%, #1e40af 100%);
+}
+
+/* orange pill-button */
+.sponsor-btn {
+  background: var(--orange);          /* orange by default        */
+  color: var(--text-primary);
+  padding: 1rem 2.4rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.25s ease, transform 0.15s ease;
+}
+
+/* turn blue – subtle lift on hover / focus */
+.sponsor-btn:hover,
+.sponsor-btn:focus-visible {
+  background: #06369e;                /* Tailwind blue-600        */
+  transform: translateY(-2px);
+}
+
+/* optional: shade darker while active / clicking */
+.sponsor-btn:active {
+  background: #1e40af;                /* blue-800                 */
+  transform: translateY(0);
+}
+
+/* keep button text white in every state */
+.sponsor-btn,
+.sponsor-btn:visited,
+.sponsor-btn:hover,
+.sponsor-btn:focus-visible,
+.sponsor-btn:active {
+  color: var(--text-primary) !important;
+}
+
+
+
+

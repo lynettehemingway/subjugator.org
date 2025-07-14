@@ -360,6 +360,12 @@
   gap: 8px;
 }
 
+.image-sub1  { background-image: url("/src/assets/submarines/subjugator_1.png"); }
+.image-sub3  { background-image: url("/src/assets/submarines/subjugator_3.png"); }
+.image-sub6  { background-image: url("/src/assets/submarines/subjugator_6.png"); }
+.image-sub8  { background-image: url("/src/assets/submarines/subjugator_8.png"); }
+.image-sub9  { background-image: url("/src/assets/submarines/subjugator_9.png"); }
+
 .tech-tag {
   display: inline-block;
   padding: 4px 10px;

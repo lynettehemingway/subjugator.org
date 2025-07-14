@@ -3,6 +3,9 @@
   background-color: var(--color-background);
   color: #ffffff;
 }
+.tech-button-container.over-grid {
+  margin-top: 2.5rem;   /* ← bump this up or down to taste */
+}
 
 /* ========== Hero Section with 3D Model ========== */
 .hero-section {

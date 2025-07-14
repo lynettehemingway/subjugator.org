@@ -16,7 +16,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 0px;
   z-index: 1;
 }
 
@@ -26,7 +26,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("/src/assets/submarine-hero.jpg");
+  background-image: url("/src/assets/subjugator8-hero.png");
   background-size: cover;
   background-position: center;
   z-index: -1;
@@ -313,9 +313,8 @@
 }
 
 .highlight-content {
-  width: 50%;
-  margin-left: auto;
-  padding: var(--space-xl) 0;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .tech-features {
@@ -381,6 +380,12 @@
   background-color: var(--color-background);
   padding: 80px 0;
   position: relative;
+  padding-bottom: 260px;
+}
+.updates-section::after {
+  content: "";            /* creates a real box */
+  display: block;
+  height: 12rem;           /* tweak up/down to taste (≈ 96 px) */
 }
 
 .updates-section .section-header {
@@ -470,6 +475,55 @@
   transform: translateX(4px);
 }
 
+.countdown-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111;
+}
+
+.countdown-title {
+  text-align: center;
+  margin-bottom: var(--space-md);
+}
+
+.countdown-clock {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.countdown-clock .time-box:nth-child(4) .time-value
+{
+  color: #fa4616;
+}
+
+.time-box {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  min-width: 60px;
+}
+
+.time-value {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #4a9fff;
+  display: block;
+}
+
+.time-label {
+  font-size: 0.75rem;
+  color: #ccc;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.image-sub9   { background-image: url("/src/assets/submarines/sub9_development.jpg"); }
+.image-robosub{ background-image: url("/src/assets/robosub_preparation.png"); }
+.update-image { background-size: cover; background-position: center; }
+
+
 /* ========== CTA Section (Join the Journey) ========== */
 .cta-section {
   padding: 100px 0; /* Increase vertical padding */
@@ -479,6 +533,7 @@
   background-position: center;
   background-attachment: fixed;
   text-align: center;
+
 }
 
 .cta-content {
@@ -573,72 +628,101 @@
   }
 }
 
-/* Responsive adjustments */
-@media screen and (max-width: 992px) {
-  .tech-highlights-section .btn {
-    margin-left: 0;
-    margin-right: auto;
-    align-self: flex-start;
+
+html, body { overflow-x: hidden; }
+
+
+@media (max-width: 680px) {
+  .stats-grid, .updates-grid {
+    grid-template-columns: 1fr;
+    padding-inline: 0.75rem; 
+    gap: 20px; 
   }
+
+  .overview-section {
+    padding-bottom: 40px;    /* down from 80px */
+  }
+
   .highlight-image {
-    width: 100%;
-    height: 300px;
     position: relative;
+    width: 100%;
+    height: 220px;
     clip-path: none;
   }
-  .updates-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+  .container{
+    width: 100%;
+    position: relative;
   }
+  /* —— MOBILE FIX FOR TECH HIGHLIGHTS —— */
   .tech-highlights-section {
-    flex-direction: column;
+    display: flex;               /* ensure it’s flex */
+    flex-direction: column;      /* stack image + content */
+    align-items: center;         /* center children horizontally */
+  }
+
+  .tech-highlights-section .highlight-image {
+    position: relative;          /* flow normally */
+    width: 100%;                 /* full-width banner */
+    height: 220px;               /* adjust as needed */
+    clip-path: none;             /* remove the desktop diagonal */
+  }
+
+  .tech-highlights-section .container {
+    display: block;              /* override the flex container */
+    width: 100%;
+    max-width: 1200px;           /* keep your desktop cap if you like */
+    margin: 0 auto;              /* center it */
+    padding: 0 20px;
+    box-sizing: border-box;
   }
 
   .highlight-content {
-    width: 100%;
-    margin: 0;
-    padding: var(--space-xl) var(--space-lg);
+    max-width: 700px;            /* optional cap so it doesn’t stretch too far */
+    margin: 1rem auto;           /* vertical spacing + horizontal centering */
+    text-align: center;
   }
-  .hero-cta {
+
+  .tech-features {
     display: flex;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 2rem;
-    width: 100%;
-    opacity: 0;
-  }
-  .hero-cta .btn {
-    opacity: 0;
-    width: 100%;
+    flex-direction: column;      /* stack the three feature blocks */
+    gap: 20px;                   /* space between them */
+    align-items: center;         /* center each block */
   }
 
-  .cta-buttons {
-    flex-direction: column;
-    gap: var(--space-md);
+  .feature {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .tech-highlights-section .btn {
+    display: block;
+    margin: 2rem auto 0;
+    width: 100%;
+    max-width: 320px;
+    padding-top: 10px;
+    min-height: auto; 
+    text-align: center;
+  }
+
+}
+
+
+@media (max-width: 680px) {
+  .hero-cta .btn,
+  .cta-buttons .btn {
+    min-width: 0;
+    width: 100%;
   }
 }
 
-@media screen and (max-width: 768px) {
-  .stats-grid,
-  .updates-grid {
-    grid-template-columns: 1fr;
-  }
-  .hero-section {
-    padding-top: var(--navbar-height);
-  }
-  .feature-text p {
-    max-width: 100%;
-  }
-
-  .feature-icon {
-    width: 50px;
-    height: 50px;
-    margin-right: var(--space-md);
-  }
-
-  .feature-text h3 {
-    font-size: 1.5rem;
-  }
+.hero-section,
+.tech-highlights-section,
+.updates-section,
+.overview-section {
+  overflow-x: hidden;
 }
+
+
 
 .overview-section .section-header,
 .updates-section .section-header {

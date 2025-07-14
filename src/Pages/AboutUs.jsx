@@ -198,7 +198,7 @@ function AboutUs() {
                   collaboration within the global AUV community.
                 </p>
                 <ul className="mission-points">
-                  <li>7x AUVSI RoboSub champions</li>
+                  <li>5x AUVSI RoboSub champions</li>
                   <li>Consistent innovation award recipients</li>
                   <li>International recognition for technical merit</li>
                 </ul>
@@ -229,10 +229,7 @@ function AboutUs() {
               </div>
               <div className="milestone-content">
                 <div
-                  className="milestone-image"
-                  style={{
-                    backgroundImage: "url('/src/assets/subjugator1.jpg')",
-                  }}
+                  className="milestone-image image-sub1"
                 ></div>
                 <div className="milestone-details">
                   <h3>Team Formation</h3>
@@ -255,10 +252,7 @@ function AboutUs() {
               </div>
               <div className="milestone-content right">
                 <div
-                  className="milestone-image"
-                  style={{
-                    backgroundImage: "url('/src/assets/subjugator3.jpg')",
-                  }}
+                  className="milestone-image image-sub3"
                 ></div>
                 <div className="milestone-details">
                   <h3>First Competition Win</h3>
@@ -281,10 +275,7 @@ function AboutUs() {
               </div>
               <div className="milestone-content">
                 <div
-                  className="milestone-image"
-                  style={{
-                    backgroundImage: "url('/src/assets/subjugator6.jpg')",
-                  }}
+                  className="milestone-image image-sub6"
                 ></div>
                 <div className="milestone-details">
                   <h3>Technology Evolution</h3>
@@ -307,10 +298,8 @@ function AboutUs() {
               </div>
               <div className="milestone-content right">
                 <div
-                  className="milestone-image"
-                  style={{
-                    backgroundImage: "url('/src/assets/subjugator8.jpg')",
-                  }}
+                  className="milestone-image image-sub8"
+
                 ></div>
                 <div className="milestone-details">
                   <h3>Advanced Autonomy</h3>
@@ -333,10 +322,7 @@ function AboutUs() {
               </div>
               <div className="milestone-content">
                 <div
-                  className="milestone-image"
-                  style={{
-                    backgroundImage: "url('/src/assets/subjugator9.jpg')",
-                  }}
+                  className="milestone-image image-sub9"
                 ></div>
                 <div className="milestone-details">
                   <h3>SubjuGator 9</h3>
@@ -424,7 +410,7 @@ function AboutUs() {
           </div>
 
           <div className="team-cta">
-            <Link to="/ourteam" className="btn btn-primary">
+            <Link to="/ourteam#op-team" className="btn btn-primary">
               Meet Our Team Members
             </Link>
           </div>
@@ -456,7 +442,7 @@ function AboutUs() {
                 <div className="advisor-info">
                   <h3>Dr. Eric M. Schwartz</h3>
                   <p className="advisor-title">
-                    Director, Machine Intelligence Laboratory
+                    Director, SubjuGator AUV Project & Machine Intelligence Laboratory
                   </p>
                   <div className="advisor-expertise">
                     <h4>Areas of Expertise:</h4>
@@ -467,8 +453,8 @@ function AboutUs() {
                     </ul>
                   </div>
                   <p className="advisor-bio">
-                    Provides overall guidance for the SubjuGator team and
-                    coordinates resources across the university.
+                    Provides overall guidance, invaluable insight and
+                    coordinates resources across the university for the SubjuGator team.
                   </p>
                 </div>
               </div>
@@ -513,7 +499,7 @@ function AboutUs() {
               <div className="achievement-icon">
                 <FaTrophy />
               </div>
-              <h3>7x RoboSub Champions</h3>
+              <h3>5x RoboSub Champions</h3>
               <p>
                 First place wins at the international AUVSI RoboSub Competition
               </p>
@@ -548,7 +534,7 @@ function AboutUs() {
               underwater robotics!
             </p>
             <div className="join-buttons">
-              <Link to="/contact" className="btn btn-primary">
+              <Link to="/contact#top-contact" className="btn btn-primary">
                 Contact Us
               </Link>
               <a href="mailto:subjugator@ufl.edu" className="btn btn-secondary">
