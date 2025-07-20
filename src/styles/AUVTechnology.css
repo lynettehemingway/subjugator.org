@@ -2,6 +2,8 @@
 .auv-technology-page {
   background-color: var(--color-background);
   color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+
 }
 .tech-button-container.over-grid {
   margin-top: 2.5rem;   /* ← bump this up or down to taste */
@@ -9,13 +11,13 @@
 
 /* ========== Hero Section with 3D Model ========== */
 .hero-section {
-  height:calc(100vh - var(--navbar-height));
+  height: calc(100vh - var(--navbar-height));  
+  position: relative;
+  align-items: center;
+  overflow: visible;
+  justify-content: center;
   position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background-color: #000000;
 }
 
 .hero-background {

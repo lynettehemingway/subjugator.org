@@ -14,9 +14,10 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import "../styles/AUVTechnology.css";
 import techReport from "../assets/Design_and_Development_of_SubjuGator_9.pdf"; 
-
-
-
+<link
+  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
 
 // Helper component for hotspots that appear on the 3D model
 const Hotspot = ({ id, title, isActive, onClick }) => {
