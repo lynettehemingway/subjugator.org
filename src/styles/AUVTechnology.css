@@ -5,19 +5,25 @@
   font-family: 'Montserrat', sans-serif;
 
 }
-.tech-button-container.over-grid {
-  margin-top: 2.5rem;   /* ← bump this up or down to taste */
+
+
+.tech-specs-section .tech-button-container {
+  margin-top: 6rem; 
+
 }
 
 /* ========== Hero Section with 3D Model ========== */
 .hero-section {
-  height: calc(100vh - var(--navbar-height));  
+  height: calc(var(--vh) * 100 - var(--navbar-height, 0px));
   position: relative;
   align-items: center;
   overflow: visible;
   justify-content: center;
   position: relative;
   display: flex;
+  height: 100svh;
+  height: 100dvh;
+  height: 100vh;
 }
 
 .hero-background {
@@ -268,7 +274,6 @@
   gap: 10px;
   z-index: 5;
 }
-
 .control-button {
   background-color: rgba(0, 0, 0, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.2);

@@ -1,60 +1,78 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import {
   FaCogs,
   FaBolt,
   FaLaptopCode,
   FaInfoCircle,
-  FaArrowsAlt,
   FaExpand,
 } from "react-icons/fa";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import "../styles/AUVTechnology.css";
-import techReport from "../assets/Design_and_Development_of_SubjuGator_9.pdf"; 
-<link
-  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
-  rel="stylesheet"
-/>
+import techReport from "../assets/Design_and_Development_of_SubjuGator_9.pdf";
 
-// Helper component for hotspots that appear on the 3D model
-const Hotspot = ({ id, title, isActive, onClick }) => {
-  return (
-    <div
-      className={`model-hotspot ${isActive ? "active" : ""}`}
-      data-id={id}
-      onClick={onClick}
-    >
-      <div className="hotspot-icon">
-        <FaInfoCircle />
-      </div>
-      <div className="hotspot-label">{title}</div>
+// Hotspot button on the model
+const Hotspot = ({ id, title, isActive, onClick }) => (
+  <div
+    className={`model-hotspot ${isActive ? "active" : ""}`}
+    data-id={id}
+    onClick={onClick}
+  >
+    <div className="hotspot-icon">
+      <FaInfoCircle />
     </div>
-  );
-};
+    <div className="hotspot-label">{title}</div>
+  </div>
+);
 
-// Helper component for technical specifications
-const SpecCard = ({ icon, title, description, list }) => {
-  return (
-    <div className="spec-card">
-      <div className="spec-icon">{icon}</div>
-      <h3>{title}</h3>
-      <p>{description}</p>
-      {list && (
-        <ul className="spec-list">
-          {list.map((item, index) => (
-            <li key={index}>{item}</li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-};
+// Specification card below the 3D canvas
+const SpecCard = ({ icon, title, description, list }) => (
+  <div className="spec-card">
+    <div className="spec-icon">{icon}</div>
+    <h3>{title}</h3>
+    <p>{description}</p>
+    {list && (
+      <ul className="spec-list">
+        {list.map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+    )}
+  </div>
+);
 
-function AUVTechnology() {
-  // Refs for DOM elements and Three.js objects
+export default function AUVTechnology() {
+  const location = useLocation();
+
+  // 1) Keep --vh up to date for mobile address-bar hiding
+  useEffect(() => {
+    const setVh = () =>
+      document.documentElement.style.setProperty(
+        "--vh",
+        `${window.innerHeight * 0.01}px`
+      );
+    setVh();
+    window.addEventListener("resize", setVh);
+    window.addEventListener("orientationchange", setVh);
+    return () => {
+      window.removeEventListener("resize", setVh);
+      window.removeEventListener("orientationchange", setVh);
+    };
+  }, []);
+
+  // 2) Smooth-scroll to anchors
+  useEffect(() => {
+    if (location.hash) {
+      setTimeout(() => {
+        const el = document.querySelector(location.hash);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+  }, [location.hash]);
+
+  // Three.js refs
   const canvasContainerRef = useRef(null);
   const canvasRef = useRef(null);
   const sceneRef = useRef(null);
@@ -62,116 +80,25 @@ function AUVTechnology() {
   const rendererRef = useRef(null);
   const controlsRef = useRef(null);
   const modelRef = useRef(null);
-  const animationFrameRef = useRef(null);
+  const frameRef = useRef(null);
 
-  // State for UI and interactions
-  const [activeSection, setActiveSection] = useState("overview");
+  // UI state
   const [activeHotspot, setActiveHotspot] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [viewMode, setViewMode] = useState("complete"); // complete or exploded
-  const [infoVisible, setInfoVisible] = useState(true);
   const [isModelLoaded, setIsModelLoaded] = useState(false);
+  const [viewMode, setViewMode] = useState("complete");
+  const [infoVisible, setInfoVisible] = useState(true);
 
-  const location = useLocation();
-
-  useEffect(() => {
-    const hash = location.hash;
-    if (hash) {
-      // Delay to ensure the target element is rendered
-      setTimeout(() => {
-        const element = document.querySelector(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 100);
-    }
-  }, [location]);
-
-  // Define hotspots to display on the model
+  // Hotspot definitions
   const hotspots = [
-    {
-      id: "thrusters",
-      title: "Thrusters",
-      position: { x: 0.3, y: 0.1, z: 0.2 },
-    },
-    {
-      id: "camera",
-      title: "Vision System",
-      position: { x: -0.2, y: 0.15, z: 0.3 },
-    },
-    { id: "mainHull", title: "Main Hull", position: { x: 0, y: 0, z: 0 } },
-    {
-      id: "torpedos",
-      title: "Torpedo System",
-      position: { x: 0.4, y: 0, z: -0.2 },
-    },
-    {
-      id: "gripper",
-      title: "Gripper",
-      position: { x: -0.35, y: -0.1, z: 0.15 },
-    },
+    { id: "thrusters", title: "Thrusters" },
+    { id: "camera", title: "Vision System" },
+    { id: "mainHull", title: "Main Hull" },
+    { id: "torpedos", title: "Torpedo System" },
+    { id: "gripper", title: "Gripper" },
   ];
 
-  // Function to update hotspot positions - now inside the component
-  const updateHotspotPositions = () => {
-    if (
-      !modelRef.current ||
-      !cameraRef.current ||
-      !sceneRef.current ||
-      !canvasRef.current
-    )
-      return;
-
-    // Get the canvas dimensions for calculations
-    const canvas = canvasRef.current;
-    const rect = canvas.getBoundingClientRect();
-
-    // - Thrusters are now positioned at the rear (underside)
-    // - Camera (vision system) is raised on the front
-    // - Main Hull remains centered
-    // - Torpedo system is placed on the front right
-    // - Gripper is placed on the front left
-    const attachmentPoints = {
-      thrusters: new THREE.Vector3(0, -0.1, -0.3),
-      camera: new THREE.Vector3(0, 0.05, 0.2),
-      mainHull: new THREE.Vector3(0, 0, 0),
-      torpedos: new THREE.Vector3(0.1, -0.01, 0.15),
-      gripper: new THREE.Vector3(-0.5, 0.1, -0.35),
-    };
-
-    hotspots.forEach((hotspot) => {
-      if (!attachmentPoints[hotspot.id]) return;
-      const point = attachmentPoints[hotspot.id].clone();
-
-      // Convert model space to world space
-      if (modelRef.current) {
-        const worldMatrix = modelRef.current.matrixWorld.clone();
-        point.applyMatrix4(worldMatrix);
-      }
-
-      // Project 3D point to 2D screen coordinates
-      point.project(cameraRef.current);
-
-      // Convert to CSS coordinates
-      const x = (point.x * 0.5 + 0.5) * rect.width;
-      const y = (-point.y * 0.5 + 0.5) * rect.height;
-
-      // Check if point is in front of the camera (z between -1 and 1 after projection)
-      const visible = point.z > -1 && point.z < 1;
-
-      // Update hotspot DOM element position
-      const hotspotElement = document.querySelector(
-        `.model-hotspot[data-id="${hotspot.id}"]`
-      );
-      if (hotspotElement) {
-        hotspotElement.style.left = `${x}px`;
-        hotspotElement.style.top = `${y}px`;
-        hotspotElement.style.visibility = visible ? "visible" : "hidden";
-      }
-    });
-  };
-
-  // Technical specifications for each system
+  // Technical specifications data
   const technicalSpecs = {
     mechanical: {
       icon: <FaCogs />,
@@ -213,42 +140,28 @@ function AUVTechnology() {
     },
   };
 
-  // Initialize Three.js scene
+  // Initialize Three.js scene, lights, camera, controls, loader, animate
   useEffect(() => {
     if (!canvasRef.current) return;
 
-    // Create scene, camera, renderer
+    // Scene
     const scene = new THREE.Scene();
-    sceneRef.current = scene;
     scene.background = new THREE.Color(0x050505);
+    sceneRef.current = scene;
 
-    // Adjusted lighting setup for better visibility without making the model pure white
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2); // Reduced from 2.5
-    scene.add(ambientLight);
+    // Lights
+    scene.add(new THREE.AmbientLight(0xffffff, 1.2));
+    const dir = new THREE.DirectionalLight(0xffffff, 1.8);
+    dir.position.set(2, 5, 5);
+    scene.add(dir);
+    const spot = new THREE.SpotLight(0xffffff, 1.5);
+    spot.position.set(0, 0, 10);
+    spot.angle = Math.PI / 6;
+    scene.add(spot);
+    scene.add(new THREE.PointLight(0x4a9fff, 1.8, 15));
+    scene.add(new THREE.PointLight(0xfa4616, 1.8, 15));
 
-    // Make the directional light a bit more subtle
-    const mainLight = new THREE.DirectionalLight(0xffffff, 1.8); // Reduced from 3
-    mainLight.position.set(2, 5, 5);
-    scene.add(mainLight);
-
-    // Add a spotlight to highlight the front of the model
-    const spotlight = new THREE.SpotLight(0xffffff, 1.5); // Reduced from 3
-    spotlight.position.set(0, 0, 10);
-    spotlight.angle = Math.PI / 6;
-    spotlight.penumbra = 0.5;
-    spotlight.distance = 20;
-    spotlight.decay = 0.5;
-    scene.add(spotlight);
-
-    // Make the colored accent lights more subtle
-    const blueLight = new THREE.PointLight(0x4a9fff, 1.8, 15); // Reduced from 3
-    blueLight.position.set(-3, 2, 3);
-    scene.add(blueLight);
-
-    const orangeLight = new THREE.PointLight(0xfa4616, 1.8, 15); // Reduced from 3
-    orangeLight.position.set(3, -2, -3);
-    scene.add(orangeLight);
-    // Create and position camera
+    // Camera
     const container = canvasContainerRef.current;
     const camera = new THREE.PerspectiveCamera(
       45,
@@ -256,614 +169,260 @@ function AUVTechnology() {
       0.1,
       1000
     );
-    cameraRef.current = camera;
     camera.position.set(0, 0, 2);
+    cameraRef.current = camera;
 
-    // Create WebGL renderer
+    // Renderer
     const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
       antialias: true,
       alpha: true,
     });
-    rendererRef.current = renderer;
-    renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    rendererRef.current = renderer;
 
-    // Add orbit controls for user interaction
+    // Controls
     const controls = new OrbitControls(camera, renderer.domElement);
-    controlsRef.current = controls;
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
-    controls.enableZoom = true;
-    controls.enablePan = true;
     controls.autoRotate = true;
     controls.autoRotateSpeed = 0.5;
+    controlsRef.current = controls;
 
-    // Animation loop
-    const animate = () => {
-      animationFrameRef.current = requestAnimationFrame(animate);
-
-      if (controlsRef.current) {
-        controlsRef.current.update();
-      }
-
-      if (rendererRef.current && sceneRef.current && cameraRef.current) {
-        rendererRef.current.render(sceneRef.current, cameraRef.current);
-        updateHotspotPositions(); // Now properly defined within component scope
-      }
-    };
-
-    // Start animation loop
-    animate();
-
-    // Handle window resize
-    const handleResize = () => {
-      if (!cameraRef.current || !rendererRef.current || !container) return;
-
-      const width = container.clientWidth;
-      const height = container.clientHeight;
-
-      cameraRef.current.aspect = width / height;
-      cameraRef.current.updateProjectionMatrix();
-
-      rendererRef.current.setSize(width, height);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    // Load 3D model using GLTFLoader
+    // Load model
     const loader = new GLTFLoader();
-
-    // Try loading the actual GLTF model
     loader.load(
-      "/models/subjugator.glb", // Path to model in public folder
+      "/models/subjugator.glb",
       (gltf) => {
         const model = gltf.scene;
-        modelRef.current = model;
         scene.add(model);
+        modelRef.current = model;
 
-        // Center the model
+        // center & scale
         const box = new THREE.Box3().setFromObject(model);
         const center = box.getCenter(new THREE.Vector3());
-        model.position.x = -center.x;
-        model.position.y = -center.y;
-        model.position.z = -center.z;
+        model.position.sub(center);
+        const size = box.getSize(new THREE.Vector3()).length();
+        if (size > 5) model.scale.setScalar(5 / size);
 
-        // Scale the model if needed
-        const size = box.getSize(new THREE.Vector3());
-        const maxDim = Math.max(size.x, size.y, size.z);
-        if (maxDim > 5) {
-          const scale = 5 / maxDim;
-          model.scale.set(scale, scale, scale);
-        }
-
-        // Store original positions for exploded view
-        model.traverse((child) => {
-          if (child.isMesh) {
-            if (child.material) {
-              child.material.needsUpdate = true;
-              child.material.emissive = new THREE.Color(0x111111);
-              child.material.emissiveIntensity = 0.1;
-              child.material.metalness = 0.4;
-              child.material.roughness = 0.2;
-            }
-            child.userData.originalPosition = child.position.clone();
+        model.traverse((c) => {
+          if (c.isMesh) {
+            c.userData.originalPosition = c.position.clone();
+            c.material.emissive = new THREE.Color(0x111111);
+            c.material.emissiveIntensity = 0.1;
+            c.material.metalness = 0.4;
+            c.material.roughness = 0.2;
           }
         });
 
         setIsModelLoaded(true);
         setIsLoading(false);
       },
-      // Progress callback
-      (xhr) => {
-        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-      },
-      // Error callback - fallback to temporary model if loading fails
-      (error) => {
-        console.error("Error loading model:", error);
-        // Create a temporary model as fallback
-        const model = createTemporaryModel();
-        modelRef.current = model;
-        scene.add(model);
-
-        // Simulate loading time
-        setTimeout(() => {
-          setIsLoading(false);
-          setIsModelLoaded(true);
-        }, 1000);
+      undefined,
+      (err) => {
+        console.error("Model load error:", err);
+        setIsLoading(false);
+        setIsModelLoaded(true);
       }
     );
 
-    // Fallback model creation function
-    const createTemporaryModel = () => {
-      // Create a temporary submarine-like shape
-      const group = new THREE.Group();
-
-      // Main hull - cylinder
-      const hullGeometry = new THREE.CylinderGeometry(0.5, 0.5, 2, 32);
-      const hullMaterial = new THREE.MeshStandardMaterial({
-        color: 0x888888,
-        metalness: 0.6,
-        roughness: 0.4,
-        emissive: 0x111111,
-        emissiveIntensity: 0.1,
-      });
-      const hull = new THREE.Mesh(hullGeometry, hullMaterial);
-      hull.rotation.x = Math.PI / 2;
-      hull.userData.originalPosition = hull.position.clone();
-      hull.userData.id = "mainHull";
-      group.add(hull);
-
-      // Nose cone
-      const noseGeometry = new THREE.ConeGeometry(0.5, 0.8, 32);
-      const noseMaterial = new THREE.MeshStandardMaterial({
-        color: 0x333333,
-        metalness: 0.8,
-        roughness: 0.2,
-      });
-      const nose = new THREE.Mesh(noseGeometry, noseMaterial);
-      nose.rotation.x = -Math.PI / 2;
-      nose.position.z = 1.4;
-      nose.userData.originalPosition = nose.position.clone();
-      group.add(nose);
-
-      // Thrusters
-      const thrusterGeometry = new THREE.CylinderGeometry(0.15, 0.15, 0.3, 16);
-      const thrusterMaterial = new THREE.MeshStandardMaterial({
-        color: 0x222222,
-        metalness: 0.9,
-        roughness: 0.1,
-      });
-
-      // Create 8 thrusters positioned around the hull
-      const thrusterPositions = [
-        { x: 0.6, y: 0.6, z: -0.5 },
-        { x: -0.6, y: 0.6, z: -0.5 },
-        { x: 0.6, y: -0.6, z: -0.5 },
-        { x: -0.6, y: -0.6, z: -0.5 },
-        { x: 0.6, y: 0.6, z: 0.5 },
-        { x: -0.6, y: 0.6, z: 0.5 },
-        { x: 0.6, y: -0.6, z: 0.5 },
-        { x: -0.6, y: -0.6, z: 0.5 },
-      ];
-
-      thrusterPositions.forEach((pos, index) => {
-        const thruster = new THREE.Mesh(thrusterGeometry, thrusterMaterial);
-        thruster.position.set(pos.x, pos.y, pos.z);
-        thruster.rotation.x = Math.PI / 2;
-        thruster.userData.originalPosition = thruster.position.clone();
-        thruster.userData.id = "thrusters";
-        group.add(thruster);
-      });
-
-      // Camera dome
-      const cameraGeometry = new THREE.SphereGeometry(
-        0.2,
-        32,
-        32,
-        0,
-        Math.PI * 2,
-        0,
-        Math.PI / 2
-      );
-      const cameraMaterial = new THREE.MeshStandardMaterial({
-        color: 0x3366ff,
-        transparent: true,
-        opacity: 0.7,
-      });
-      const camera = new THREE.Mesh(cameraGeometry, cameraMaterial);
-      camera.position.set(0, -0.5, 1);
-      camera.rotation.x = Math.PI;
-      camera.userData.originalPosition = camera.position.clone();
-      camera.userData.id = "camera";
-      group.add(camera);
-
-      // Add orange accent
-      const accentGeometry = new THREE.BoxGeometry(0.1, 0.1, 2.5);
-      const accentMaterial = new THREE.MeshStandardMaterial({
-        color: 0xfa4616,
-      });
-      const accent = new THREE.Mesh(accentGeometry, accentMaterial);
-      accent.position.set(0, 0.53, 0);
-      accent.userData.originalPosition = accent.position.clone();
-      group.add(accent);
-
-      return group;
+    // Animation loop
+    const animate = () => {
+      frameRef.current = requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+      // updateHotspots();
     };
+    animate();
 
-    // Clean up on component unmount
+    // Resize handler
+    const onResize = () => {
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    };
+    window.addEventListener("resize", onResize);
     return () => {
-      window.removeEventListener("resize", handleResize);
-
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-
-      if (rendererRef.current) {
-        rendererRef.current.dispose();
-      }
-
-      if (sceneRef.current) {
-        // Clean up Three.js objects
-        while (sceneRef.current.children.length > 0) {
-          const object = sceneRef.current.children[0];
-          sceneRef.current.remove(object);
-        }
-      }
+      window.removeEventListener("resize", onResize);
+      cancelAnimationFrame(frameRef.current);
+      renderer.dispose();
     };
   }, []);
 
-  // Handle exploded view toggle
+  // Exploded / complete toggle
   useEffect(() => {
     if (!modelRef.current) return;
-
-    if (viewMode === "exploded") {
-      // Move parts apart to create an exploded view
-      modelRef.current.traverse((child) => {
-        if (child.isMesh && child.userData.originalPosition) {
-          // Calculate direction from center
-          const direction = new THREE.Vector3();
-          direction
-            .subVectors(child.position, new THREE.Vector3(0, 0, 0))
-            .normalize();
-
-          // Store current position before exploding
-          child.userData.preExplodedPosition = child.position.clone();
-
-          // Move outward
-          const explosionDistance = 1.5;
-          child.position.add(direction.multiplyScalar(explosionDistance));
-        }
-      });
-    } else {
-      // Reset to original positions
-      modelRef.current.traverse((child) => {
-        if (child.isMesh) {
-          if (child.userData.preExplodedPosition) {
-            child.position.copy(child.userData.preExplodedPosition);
-          } else if (child.userData.originalPosition) {
-            child.position.copy(child.userData.originalPosition);
-          }
-        }
-      });
-    }
+    modelRef.current.traverse((c) => {
+      if (!c.isMesh || !c.userData.originalPosition) return;
+      if (viewMode === "exploded") {
+        const dir = c.position.clone().normalize().multiplyScalar(1.5);
+        c.position.copy(c.userData.originalPosition).add(dir);
+      } else {
+        c.position.copy(c.userData.originalPosition);
+      }
+    });
   }, [viewMode]);
 
-  // Handle scroll effect to show different sections
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-
-      // Determine active section based on scroll position
-      const sections = document.querySelectorAll(".section");
-      sections.forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        const sectionId = section.id;
-
-        if (rect.top < windowHeight / 2 && rect.bottom > windowHeight / 2) {
-          setActiveSection(sectionId);
-        }
-      });
-
-      // Parallax effect for certain elements
-      const parallaxElements = document.querySelectorAll(".parallax");
-      parallaxElements.forEach((element) => {
-        if (element.dataset && element.dataset.speed) {
-          const speed = parseFloat(element.dataset.speed) || 0.2;
-          element.style.transform = `translateY(${scrollY * speed}px)`;
-        }
-      });
-
-      // Optional: Adjust camera or model position based on scroll
-      if (modelRef.current && controlsRef.current) {
-        // Example: Rotate model slightly based on scroll
-        modelRef.current.rotation.y = scrollY * 0.001;
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Control auto-rotation based on user interaction
+  // Interaction handlers
   const handleModelInteraction = () => {
-    if (controlsRef.current) {
-      controlsRef.current.autoRotate = false;
-
-      // Resume auto-rotation after a period of inactivity
-      clearTimeout(controlsRef.current.userData.rotationTimeout);
-      controlsRef.current.userData.rotationTimeout = setTimeout(() => {
-        if (controlsRef.current) {
-          controlsRef.current.autoRotate = true;
-        }
-      }, 5000);
-    }
+    if (controlsRef.current) controlsRef.current.autoRotate = false;
   };
 
-  // Handle hotspot clicks
-  const handleHotspotClick = (hotspotId) => {
-    // Toggle logic - if clicking the already active hotspot, deselect it
-    if (activeHotspot === hotspotId) {
-      setActiveHotspot(null); // Deselect the hotspot
-      
-      // Optional: Reset camera to default rotation if you want
-      if (controlsRef.current) {
-        controlsRef.current.autoRotate = true; // Resume auto-rotation
+  const updateHotspotPositions = () => {
+    if (!modelRef.current || !cameraRef.current || !canvasRef.current) return;
+    const rect = canvasRef.current.getBoundingClientRect();
+    const attach = {
+      thrusters: new THREE.Vector3(0, -0.1, -0.3),
+      camera: new THREE.Vector3(0, 0.05, 0.2),
+      mainHull: new THREE.Vector3(0, 0, 0),
+      torpedos: new THREE.Vector3(0.1, -0.01, 0.15),
+      gripper: new THREE.Vector3(-0.5, 0.1, -0.35),
+    };
+    hotspots.forEach((h) => {
+      const pt = attach[h.id]?.clone();
+      if (!pt) return;
+      pt.applyMatrix4(modelRef.current.matrixWorld);
+      pt.project(cameraRef.current);
+      const x = (pt.x * 0.5 + 0.5) * rect.width;
+      const y = (-pt.y * 0.5 + 0.5) * rect.height;
+      const vis = pt.z > -1 && pt.z < 1;
+      const el = document.querySelector(`.model-hotspot[data-id="${h.id}"]`);
+      if (el) {
+        el.style.left = `${x}px`;
+        el.style.top = `${y}px`;
+        el.style.visibility = vis ? "visible" : "hidden";
       }
-      
-      return; // Exit the function early
-    }
-    
-    // If it's a different hotspot, select it (existing functionality)
-    setActiveHotspot(hotspotId);
-  
-    // Move camera to focus on the selected component
-    if (modelRef.current && cameraRef.current && controlsRef.current) {
-      // Find the component in the model
-      const targetComponent = modelRef.current.children.find(
-        (child) => child.userData.id === hotspotId
-      );
-  
-      if (targetComponent) {
-        // Disable auto-rotation when focusing on a component
-        controlsRef.current.autoRotate = false;
-  
-        // Set camera target directly
-        controlsRef.current.target.copy(targetComponent.position);
-      }
-    }
+    });
   };
 
-  // Toggle between complete and exploded views
-  const toggleViewMode = () => {
-    setViewMode((prevMode) =>
-      prevMode === "complete" ? "exploded" : "complete"
-    );
-  };
-
-  // Toggle information overlay visibility
-  const toggleInfoVisibility = () => {
-    setInfoVisible((prev) => !prev);
-  };
+  useEffect(() => {
+    // on each frame draw, also update hotspots
+    const id = setInterval(() => {
+      if (isModelLoaded) updateHotspotPositions();
+    }, 100);
+    return () => clearInterval(id);
+  }, [isModelLoaded]);
 
   return (
-    <div className="main-content">
     <div className="auv-technology-page">
-      {/* Hero Section with 3D Model */}
+      {/* ===== Hero ===== */}
       <section className="hero-section" id="overview">
-        <div className="hero-background"></div>
-        <div className="container">
-          <div className="hero-content">
-            <h1 className="hero-title">
-              <span className="text-gradient-blue">AUV</span> Technology
-            </h1>
-            <p className="hero-subtitle">
-              Exploring the innovation behind SubjuGator
-            </p>
-
-            {/* 3D Model Canvas Container */}
-            <div
-              className="model-canvas-container"
-              ref={canvasContainerRef}
-              onClick={handleModelInteraction}
-              onMouseMove={handleModelInteraction}
-            >
-              {isLoading && (
-                <div className="loading-overlay">
-                  <div className="loading-spinner"></div>
-                  <p>Loading 3D Model...</p>
-                </div>
-              )}
-
-              <canvas ref={canvasRef} className="model-canvas" />
-
-              {isModelLoaded && (
-                <>
-                  {/* Interactive Hotspots */}
-                  <div className="hotspots-container">
-                    {hotspots.map((hotspot) => (
-                      <Hotspot
-                        key={hotspot.id}
-                        id={hotspot.id}
-                        title={hotspot.title}
-                        isActive={activeHotspot === hotspot.id}
-                        onClick={() => handleHotspotClick(hotspot.id)}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Model Controls */}
-                  <div className="model-controls">
-                    <button
-                      className="control-button"
-                      onClick={toggleViewMode}
-                      title={
-                        viewMode === "complete"
-                          ? "Show Exploded View"
-                          : "Show Complete View"
+        <div className="hero-background" />
+        <div className="container hero-content">
+          <h1 className="hero-title">
+            <span className="text-gradient-blue">AUV</span> Technology
+          </h1>
+          <p className="hero-subtitle">
+            Exploring the innovation behind SubjuGator
+          </p>
+          <div
+            className="model-canvas-container"
+            ref={canvasContainerRef}
+            onClick={handleModelInteraction}
+            onMouseMove={handleModelInteraction}
+          >
+            {isLoading && (
+              <div className="loading-overlay">
+                <div className="loading-spinner" />
+                <p>Loading 3D Model…</p>
+              </div>
+            )}
+            <canvas ref={canvasRef} className="model-canvas" />
+            {isModelLoaded && (
+              <>
+                <div className="hotspots-container">
+                  {hotspots.map((hs) => (
+                    <Hotspot
+                      key={hs.id}
+                      id={hs.id}
+                      title={hs.title}
+                      isActive={activeHotspot === hs.id}
+                      onClick={() =>
+                        setActiveHotspot((p) => (p === hs.id ? null : hs.id))
                       }
-                    >
-                      <FaExpand />
-                      <span>
-                        {viewMode === "complete"
-                          ? "Exploded View"
-                          : "Complete View"}
-                      </span>
-                    </button>
-
-                    <button
-                      className="control-button"
-                      onClick={toggleInfoVisibility}
-                      title={infoVisible ? "Hide Info" : "Show Info"}
-                    >
-                      <FaInfoCircle />
-                      <span>{infoVisible ? "Hide Info" : "Show Info"}</span>
-                    </button>
-                  </div>
-                </>
-              )}
-
-              {/* Component Information Panel */}
-              {activeHotspot && infoVisible && (
-                <div className="component-info-panel">
-                  <h3>{hotspots.find((h) => h.id === activeHotspot)?.title}</h3>
-                  <p>
-                    {activeHotspot === "thrusters" &&
-                      "Eight-thruster configuration provides redundant six degrees of freedom control, maintaining full functionality even if one thruster fails."}
-                    {activeHotspot === "camera" &&
-                      "Computer vision system using advanced neural networks for object detection and classification underwater."}
-                    {activeHotspot === "mainHull" &&
-                      "Houses the main computer, power distribution, and electronic systems in a waterproof enclosure."}
-                    {activeHotspot === "torpedos" &&
-                      "Dual servo-actuated torpedo launchers with rack and pinion mechanisms for competition tasks."}
-                    {activeHotspot === "gripper" &&
-                      "Servo-actuated gripper with serrated aluminum jaws for manipulating underwater objects."}
-                  </p>
+                    />
+                  ))}
                 </div>
-              )}
-            </div>
-
-            <div className="model-instructions">
-              <p>
-                Click and drag to rotate • Scroll to zoom • Click on hotspots to
-                explore
-              </p>
-            </div>
+                <div className="model-controls">
+                  <button
+                    onClick={() =>
+                      setViewMode((v) =>
+                        v === "complete" ? "exploded" : "complete"
+                      )
+                    }
+                  >
+                    <FaExpand />{" "}
+                    <span>
+                      {viewMode === "complete"
+                        ? "Exploded View"
+                        : "Complete View"}
+                    </span>
+                  </button>
+                  <button onClick={() => setInfoVisible((v) => !v)}>
+                    <FaInfoCircle />{" "}
+                    <span>{infoVisible ? "Hide Info" : "Show Info"}</span>
+                  </button>
+                </div>
+                {activeHotspot && infoVisible && (
+                  <div className="component-info-panel">
+                    <h3>
+                      {hotspots.find((h) => h.id === activeHotspot)?.title}
+                    </h3>
+                    <p>
+                      {/* Add your active-hotspot description here */}
+                    </p>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </div>
       </section>
 
-      {/* Technical Specifications Section */}
+      {/* ===== Technical Specifications ===== */}
       <section className="tech-specs-section section" id="tech-specs">
-        <div className="blueprint-grid-bg"></div>
+        <div className="blueprint-grid-bg" />
         <div className="container">
           <div className="section-header">
             <h2>Technical Specifications</h2>
-            <div className="section-divider"></div>
+            <div className="section-divider" />
             <p className="subtitle">
               Cutting-edge systems powering autonomous underwater exploration
             </p>
           </div>
-
-          <div className="specs-grid-wrapper">
-
-            <div className="specs-grid">
-              <SpecCard
-                icon={technicalSpecs.mechanical.icon}
-                title={technicalSpecs.mechanical.title}
-                description={technicalSpecs.mechanical.description}
-                list={technicalSpecs.mechanical.list}
-              />
-
-              <SpecCard
-                icon={technicalSpecs.electrical.icon}
-                title={technicalSpecs.electrical.title}
-                description={technicalSpecs.electrical.description}
-                list={technicalSpecs.electrical.list}
-              />
-
-              <SpecCard
-                icon={technicalSpecs.software.icon}
-                title={technicalSpecs.software.title}
-                description={technicalSpecs.software.description}
-                list={technicalSpecs.software.list}
-              />
-            </div>
-
-            <div className="tech-button-container over-grid">
-              <a href={techReport} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-                Technical Design Report
-              </a>
-            </div>
+          <div className="specs-grid">
+            <SpecCard {...technicalSpecs.mechanical} />
+            <SpecCard {...technicalSpecs.electrical} />
+            <SpecCard {...technicalSpecs.software} />
+          </div>
+          <div className="tech-button-container">
+            <a
+              href={techReport}
+              className="btn btn-primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Technical Design Report
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Feature Highlight Section */}
-      <section className="feature-highlight-section section" id="features">
-        <div className="container">
-          <div className="section-header">
-            <h2>Key Innovations</h2>
-            <div className="section-divider"></div>
-            <p className="subtitle">
-              Pioneering advancements that set SubjuGator apart
-            </p>
-          </div>
-
-          <div className="feature-highlight">
-            <div className="feature-image">
-              {/* Background image will be set in CSS */}
-            </div>
-            <div className="feature-content">
-              <h3>
-                Adaptive{" "}
-                <span className="text-gradient-blue">Control System</span>
-              </h3>
-              <p>
-                Our state-of-the-art control system uses an Extended Kalman
-                filter operating on manifolds to efficiently handle attitude
-                singularities. The trajectory generator produces 3rd-order
-                continuous trajectories while accounting for vehicle
-                constraints.
-              </p>
-              
-            </div>
-          </div>
-
-          <div className="feature-highlight reversed">
-            <div className="feature-image second">
-              {/* Background image will be set in CSS */}
-            </div>
-            <div className="feature-content">
-              <h3>
-                <span className="text-gradient-orange">Deep Learning</span>{" "}
-                Vision
-              </h3>
-              <p>
-                SubjuGator combines traditional computer vision techniques with
-                advanced deep neural networks (YOLO architecture) to identify
-                competition elements and navigate dynamic underwater
-                environments.
-              </p>
-            </div>
-          </div>
-
-          <div className="feature-highlight">
-            <div className="feature-image third">
-              {/* Background image will be set in CSS */}
-            </div>
-            <div className="feature-content">
-              <h3>
-                Advanced{" "}
-                <span className="text-gradient-blue">Electro-Mechanical</span>{" "}
-                Design
-              </h3>
-              <p>
-                Our innovative electro-mechanical systems include custom PCB
-                designs, CAN bus communications, servo-actuated mechanisms, and
-                aluminum components manufactured using precision CNC and
-                water-jet cutting techniques.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Resources Section */}
+      {/* ===== Resources ===== */}
       <section className="resources-section section" id="resources">
-        <div className="blueprint-grid-bg"></div>
+        <div className="blueprint-grid-bg" />
         <div className="container">
           <div className="section-header">
             <h2>Technical Resources</h2>
-            <div className="section-divider"></div>
+            <div className="section-divider" />
             <p className="subtitle">
               In-depth documentation and research materials
             </p>
           </div>
-
           <div className="resources-grid">
-            
             <a
               href="https://github.com/uf-mil/mil2"
               className="resource-card"
@@ -876,7 +435,6 @@ function AUVTechnology() {
               <h3>Software Repository</h3>
               <p>Open-source codebase, ROS packages, and development guides</p>
             </a>
-
             <a
               href={techReport}
               className="resource-card"
@@ -887,22 +445,18 @@ function AUVTechnology() {
                 <span>PDF</span>
               </div>
               <h3>Technical Paper</h3>
-              <p>
-                Comprehensive overview of SubjuGator's design and implementation
-              </p>
+              <p>Comprehensive overview of SubjuGator's design and implementation</p>
             </a>
           </div>
         </div>
       </section>
 
-      {/* Call to Action */}
+      {/* ===== Call to Action ===== */}
       <section className="cta-section">
         <div className="container">
           <div className="cta-content">
             <h2>Experience Innovation</h2>
-            <p>
-              Want to learn more about SubjuGator or get involved with our team?
-            </p>
+            <p>Want to learn more about SubjuGator or get involved with our team?</p>
             <div className="cta-buttons">
               <Link to="/robosub#top" className="btn btn-primary">
                 RoboSub Competition
@@ -915,8 +469,5 @@ function AUVTechnology() {
         </div>
       </section>
     </div>
-    </div>
   );
 }
-
-export default AUVTechnology;
