@@ -3,18 +3,20 @@
     /* Base styles for the page */
     color: var(--color-text-primary);
     background-color: var(--color-background);
-    overflow-x: hidden;
+    height: calc(100vh - var(--navbar-height));  
+    overflow-x: visible;
   }
   
   /* Hero Section with regular background (not underwater) */
   .robosub-page .robosub-hero-section {
-    height: 100vh;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background-color: #000000;
+  height: calc(100vh - var(--navbar-height));  
+  position: relative;
+  align-items: center;
+  overflow: visible;
+  justify-content: center;
+  position: relative;
+  margin-top: 160px;
+  display: flex;
   }
   
   /* Background image styling similar to Home page */
@@ -80,7 +82,6 @@
   
   .robosub-page .hero-title {
     font-size: clamp(3.5rem, 10vw, 7rem);
-    font-weight: 800;
     color: #ffffff;
     margin-bottom: 0;
     text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);

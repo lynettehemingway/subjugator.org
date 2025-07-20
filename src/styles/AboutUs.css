@@ -1,4 +1,8 @@
 /* Hero Section with Team Photo Background - Improved */
+html, body {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif !important;
+}
+
 .about-hero-section {
   min-height: 70vh;
   position: relative;
@@ -17,17 +21,27 @@
   border-radius: 12px; /* Optional: rounded corners for container */
 }
 
-
+.about-hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  z-index: 1;
+}
 
 .about-hero-section .container {
-  position: relative;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%,-50%);
   z-index: 1;
   width: 100%;
   max-width: var(--max-width);
   padding: 0 20px;
   margin-bottom: 20px;
 }
-
 .hero-title {
   font-size: clamp(2rem, 5vw, 3.5rem);
   margin-bottom: 10px;
